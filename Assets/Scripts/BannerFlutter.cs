@@ -43,11 +43,11 @@ public class BannerFlutter : MonoBehaviour
         {
             case BannerSizes.Small:
                 speed = 0.2f;
-                max = 0.5f;
+                max = 0.2f;
                 break;
             case BannerSizes.Medium:
                 speed = 0.1f;
-                max = 0.3f;
+                max = 0.2f;
                 break;
         }
     }

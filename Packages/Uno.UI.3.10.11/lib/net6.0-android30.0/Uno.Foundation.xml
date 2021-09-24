@@ -1,0 +1,554 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Uno.Foundation</name>
+    </assembly>
+    <members>
+        <member name="M:Windows.Foundation.AsyncOperationWithProgress`2.#ctor(Uno.FuncAsync{Windows.Foundation.AsyncOperationWithProgress{`0,`1},`0})">
+            <inheritdoc />
+        </member>
+        <member name="P:Windows.Foundation.AsyncOperationWithProgress`2.Progress">
+            <inheritdoc />
+        </member>
+        <member name="P:Windows.Foundation.AsyncOperationWithProgress`2.Completed">
+            <inheritdoc />
+        </member>
+        <member name="F:Windows.Foundation.AsyncStatus.Completed">
+            <summary>The operation has completed.</summary>
+        </member>
+        <member name="F:Windows.Foundation.AsyncStatus.Started">
+            <summary>The operation has started.</summary>
+        </member>
+        <member name="F:Windows.Foundation.Collections.CollectionChange.Reset">
+            <summary>
+            The collection is changed.
+            </summary>
+        </member>
+        <member name="F:Windows.Foundation.Collections.CollectionChange.ItemInserted">
+            <summary>
+            An item is added to the collection.
+            </summary>
+        </member>
+        <member name="F:Windows.Foundation.Collections.CollectionChange.ItemRemoved">
+            <summary>
+            An item is removed from the collection.
+            </summary>
+        </member>
+        <member name="F:Windows.Foundation.Collections.CollectionChange.ItemChanged">
+            <summary>
+            An item is changed in the collection.
+            </summary>
+        </member>
+        <member name="E:Windows.Foundation.Collections.IObservableMap`2.MapChanged">
+            <summary>Occurs when the map changes.</summary>
+        </member>
+        <member name="E:Windows.Foundation.Collections.IObservableVector.UntypedVectorChanged">
+            <summary>
+            Occurs when the vector changes.
+            </summary>
+        </member>
+        <member name="E:Windows.Foundation.Collections.IObservableVector`1.VectorChanged">
+            <summary>
+            Occurs when the vector changes.
+            </summary>
+        </member>
+        <member name="P:Windows.Foundation.Collections.IVectorChangedEventArgs.CollectionChange">
+            <summary>
+            Gets the type of change that occurred in the vector.
+            </summary>
+        </member>
+        <member name="P:Windows.Foundation.Collections.IVectorChangedEventArgs.Index">
+            <summary>
+            Gets the position where the change occurred in the vector.
+            </summary>
+        </member>
+        <member name="M:Windows.Foundation.Deferral.#ctor(Windows.Foundation.DeferralCompletedHandler)">
+            <summary>
+            Initializes a new Deferral object and specifies a DeferralCompletedHandler
+            to be called upon completion of the deferral.
+            </summary>
+            <param name="handler">A DeferralCompletedHandler to be called upon completion of the deferral.</param>
+        </member>
+        <member name="M:Windows.Foundation.Deferral.Complete">
+            <summary>
+            If the DeferralCompletedHandler has not yet been invoked,
+            this will call it and drop the reference to the delegate.
+            </summary>
+        </member>
+        <member name="M:Windows.Foundation.Metadata.ApiInformation.RegisterAssembly(System.Reflection.Assembly)">
+            <summary>
+            Registers an assembly as part of the Is*Present methods
+            </summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="P:Windows.Foundation.Metadata.ApiInformation.IsFailWhenNotImplemented">
+            <summary>
+            Determines if runtime use of not implemented members raises an exception, or logs an error message.
+            </summary>
+        </member>
+        <member name="P:Windows.Foundation.Metadata.ApiInformation.AlwaysLogNotImplementedMessages">
+            <summary>
+            Determines if runtime use of not implemented members is logged only once, or at each use.
+            </summary>
+        </member>
+        <member name="P:Windows.Foundation.Metadata.ApiInformation.NotImplementedLogLevel">
+            <summary>
+            The message log level used when a not implemented member is used at runtime, if <see cref="P:Windows.Foundation.Metadata.ApiInformation.IsFailWhenNotImplemented"/> is false.
+            </summary>
+        </member>
+        <member name="P:Windows.Foundation.IPropertyValue.IsNumericScalar">
+            <summary>Gets a value that indicates whether the property value is a scalar value.</summary>
+            <returns>True if the value is scalar; otherwise false.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetDouble">
+            <summary>Returns the floating-point value stored as a property value.</summary>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetChar16">
+            <summary>Returns the Unicode character stored as a property value.</summary>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetBoolean">
+            <summary>Returns the Boolean value stored as a property value.</summary>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetGuid">
+            <summary>Returns the GUID value stored as a property value.</summary>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetDateTime">
+            <summary>Returns the date and time value stored as a property value.</summary>
+            <returns>The value.</returns>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetUInt8Array(System.Byte[]@)">
+            <summary>Returns the array of byte values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetInt16Array(System.Int16[]@)">
+            <summary>Returns the array of integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetUInt16Array(System.UInt16[]@)">
+            <summary>Returns the array of unsigned integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetInt32Array(System.Int32[]@)">
+            <summary>Returns the array of integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetUInt32Array(System.UInt32[]@)">
+            <summary>Returns the array of unsigned integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetInt64Array(System.Int64[]@)">
+            <summary>Returns the array of integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetUInt64Array(System.UInt64[]@)">
+            <summary>Returns the array of unsigned integer values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetSingleArray(System.Single[]@)">
+            <summary>Returns the array of floating-point values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetStringArray(System.String[]@)">
+            <summary>Returns the array of string values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetInspectableArray(System.Object[]@)">
+            <summary>Returns the array of inspectable objects stored as a property value.</summary>
+            <param name="value">The array of objects.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetTimeSpanArray(System.TimeSpan[]@)">
+            <summary>Returns the array of time interval values stored as a property value.</summary>
+            <param name="value">The array of values.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetPointArray(Windows.Foundation.Point[]@)">
+            <summary>Returns the array of point structures stored as a property value.</summary>
+            <param name="value">The array of structures.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetSizeArray(Windows.Foundation.Size[]@)">
+            <summary>Returns the array of size structures stored as a property value.</summary>
+            <param name="value">The array of structures.</param>
+        </member>
+        <member name="M:Windows.Foundation.IPropertyValue.GetRectArray(Windows.Foundation.Rect[]@)">
+            <summary>Returns the array of rectangle structures stored as a property value.</summary>
+            <param name="value">The array of structures.</param>
+        </member>
+        <member name="T:Windows.Foundation.PropertyValue">
+            <summary>
+            Represents a value in a property store (such as a PropertySet instance).
+            </summary>
+        </member>
+        <member name="F:Windows.Foundation.HResult.Value">
+            <summary>An integer that describes an error.</summary>
+        </member>
+        <member name="M:Windows.Foundation.IClosable.Close">
+            <summary>Releases system resources that are exposed by a Windows Runtime object.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.UInt8">
+            <summary>A byte.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Int16">
+            <summary>A signed 16-bit (2-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.UInt16">
+            <summary>An unsigned 16-bit (2-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Int32">
+            <summary>A signed 32-bit (4-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.UInt32">
+            <summary>An unsigned 32-bit (4-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Int64">
+            <summary>A signed 64-bit (8-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.UInt64">
+            <summary>An unsigned 64-bit (8-byte) integer.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Single">
+            <summary>A signed 32-bit (4-byte) floating-point number.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.String">
+            <summary>A Windows Runtime HSTRING.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Inspectable">
+            <summary>An object implementing the IInspectable interface.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.TimeSpan">
+            <summary>A time interval.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Guid">
+            <summary>A globally unique identifier.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Point">
+            <summary>An ordered pair of floating-point x- and y-coordinates that defines a point in a two-dimensional plane.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Size">
+            <summary>An ordered pair of float-point numbers that specify a height and width.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Rect">
+            <summary>A set of four floating-point numbers that represent the location and size of a rectangle.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.OtherType">
+            <summary>A type not specified in this enumeration.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.DoubleArray">
+            <summary>An array of Double values.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.Char16Array">
+            <summary>An array of Char values.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.BooleanArray">
+            <summary>An array of Boolean values.</summary>
+        </member>
+        <member name="F:Windows.Foundation.PropertyType.DateTimeArray">
+            <summary>An array of DateTime values.</summary>
+        </member>
+        <member name="P:Windows.Foundation.Rect.Size">
+            <summary>
+            Provides the size of this rectangle.
+            </summary>
+            <remarks>This property is not provided by UWP, hence it is marked internal.</remarks>
+        </member>
+        <member name="P:Windows.Foundation.Rect.Location">
+            <summary>
+            Provides the location of this rectangle.
+            </summary>
+            <remarks>This property is not provided by UWP, hence it is marked internal.</remarks>
+        </member>
+        <member name="M:Windows.Foundation.Rect.Inflate(System.Double,System.Double)">
+            <summary>Expands or shrinks the rectangle by using the specified width and height amounts, in all directions. </summary>
+            <param name="width">The amount by which to expand or shrink the left and right sides of the rectangle.</param>
+            <param name="height">The amount by which to expand or shrink the top and bottom sides of the rectangle.</param>
+            <exception cref="T:System.InvalidOperationException">This method is called on the <see cref="P:System.Windows.Rect.Empty" /> rectangle.</exception>
+        </member>
+        <member name="M:Windows.Foundation.Rect.Intersect(Windows.Foundation.Rect)">
+            <summary>
+            Finds the intersection of the rectangle represented by the current Windows.Foundation.Rect
+            and the rectangle represented by the specified Windows.Foundation.Rect, and stores
+            the result as the current Windows.Foundation.Rect.
+            </summary>
+            <remarks>
+            Use .IntersectWith() extensions if you want a version without side-effects.
+            </remarks>
+            <param name="rect">The rectangle to intersect with the current rectangle.</param>
+        </member>
+        <member name="M:Windows.Foundation.Rect.Union(Windows.Foundation.Rect)">
+            <summary>
+            Finds the union of the rectangle represented by the current Windows.Foundation.Rect
+            and the rectangle represented by the specified Windows.Foundation.Rect, and stores
+            the result as the current Windows.Foundation.Rect.
+            </summary>
+            <param name="rect">The rectangle to union with the current rectangle.</param>
+        </member>
+        <member name="T:Uno.Buffers.ArrayPool`1">
+            <summary>
+            Provides a resource pool that enables reusing instances of type <see cref="T:T[]"/>. 
+            </summary>
+            <remarks>
+            <para>
+            Renting and returning buffers with an <see cref="T:Uno.Buffers.ArrayPool`1"/> can increase performance
+            in situations where arrays are created and destroyed frequently, resulting in significant
+            memory pressure on the garbage collector.
+            </para>
+            <para>
+            This class is thread-safe.  All members may be used by multiple threads concurrently.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:Uno.Buffers.ArrayPool`1.s_sharedInstance">
+            <summary>The lazily-initialized shared pool instance.</summary>
+        </member>
+        <member name="P:Uno.Buffers.ArrayPool`1.Shared">
+            <summary>
+            Retrieves a shared <see cref="T:Uno.Buffers.ArrayPool`1"/> instance.
+            </summary>
+            <remarks>
+            The shared pool provides a default implementation of <see cref="T:Uno.Buffers.ArrayPool`1"/>
+            that's intended for general applicability.  It maintains arrays of multiple sizes, and 
+            may hand back a larger array than was actually requested, but will never hand back a smaller 
+            array than was requested. Renting a buffer from it with <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/> will result in an 
+            existing buffer being taken from the pool if an appropriate buffer is available or in a new 
+            buffer being allocated if one is not available.
+            </remarks>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.EnsureSharedCreated">
+            <summary>Ensures that <see cref="F:Uno.Buffers.ArrayPool`1.s_sharedInstance"/> has been initialized to a pool and returns it.</summary>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Create">
+            <summary>
+            Creates a new <see cref="T:Uno.Buffers.ArrayPool`1"/> instance using default configuration options.
+            </summary>
+            <returns>A new <see cref="T:Uno.Buffers.ArrayPool`1"/> instance.</returns>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Create(System.Int32,System.Int32)">
+            <summary>
+            Creates a new <see cref="T:Uno.Buffers.ArrayPool`1"/> instance using custom configuration options.
+            </summary>
+            <param name="maxArrayLength">The maximum length of array instances that may be stored in the pool.</param>
+            <param name="maxArraysPerBucket">
+            The maximum number of array instances that may be stored in each bucket in the pool.  The pool
+            groups arrays of similar lengths into buckets for faster access.
+            </param>
+            <returns>A new <see cref="T:Uno.Buffers.ArrayPool`1"/> instance with the specified configuration options.</returns>
+            <remarks>
+            The created pool will group arrays into buckets, with no more than <paramref name="maxArraysPerBucket"/>
+            in each bucket and with those arrays not exceeding <paramref name="maxArrayLength"/> in length.
+            </remarks>
+        </member>
+        <member name="F:Uno.Buffers.ArrayPool`1.DefaultMaxArrayLength">
+            <summary>The default maximum length of each array in the pool (2^20).</summary>
+        </member>
+        <member name="F:Uno.Buffers.ArrayPool`1.DefaultMaxNumberOfArraysPerBucket">
+            <summary>The default maximum number of arrays per bucket that are available for rent.</summary>
+        </member>
+        <member name="F:Uno.Buffers.ArrayPool`1.s_emptyArray">
+            <summary>Lazily-allocated empty array used when arrays of length 0 are requested.</summary>
+        </member>
+        <member name="P:Uno.Buffers.ArrayPool`1.Id">
+            <summary>Gets an ID for the pool to use with events.</summary>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)">
+            <summary>
+            Retrieves a buffer that is at least the requested length.
+            </summary>
+            <param name="minimumLength">The minimum length of the array needed.</param>
+            <returns>
+            An <see cref="T:T[]"/> that is at least <paramref name="minimumLength"/> in length.
+            </returns>
+            <remarks>
+            This buffer is loaned to the caller and should be returned to the same pool via 
+            <see cref="M:Uno.Buffers.ArrayPool`1.Return(`0[],System.Boolean)"/> so that it may be reused in subsequent usage of <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/>.  
+            It is not a fatal error to not return a rented buffer, but failure to do so may lead to 
+            decreased application performance, as the pool may need to create a new buffer to replace
+            the one lost.
+            </remarks>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Return(`0[],System.Boolean)">
+            <summary>
+            Returns to the pool an array that was previously obtained via <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/> on the same 
+            <see cref="T:Uno.Buffers.ArrayPool`1"/> instance.
+            </summary>
+            <param name="array">
+            The buffer previously obtained from <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/> to return to the pool.
+            </param>
+            <param name="clearArray">
+            If <c>true</c> and if the pool will store the buffer to enable subsequent reuse, <see cref="M:Uno.Buffers.ArrayPool`1.Return(`0[],System.Boolean)"/>
+            will clear <paramref name="array"/> of its contents so that a subsequent consumer via <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/> 
+            will not see the previous consumer's content.  If <c>false</c> or if the pool will release the buffer,
+            the array's contents are left unchanged.
+            </param>
+            <remarks>
+            Once a buffer has been returned to the pool, the caller gives up all ownership of the buffer 
+            and must not use it. The reference returned from a given call to <see cref="M:Uno.Buffers.ArrayPool`1.Rent(System.Int32)"/> must only be
+            returned via <see cref="M:Uno.Buffers.ArrayPool`1.Return(`0[],System.Boolean)"/> once.  The default <see cref="T:Uno.Buffers.ArrayPool`1"/>
+            may hold onto the returned buffer in order to rent it again, or it may release the returned buffer
+            if it's determined that the pool already has enough buffers stored.
+            </remarks>
+        </member>
+        <member name="T:Uno.Buffers.ArrayPool`1.Bucket">
+            <summary>Provides a thread-safe bucket containing buffers that can be Rent'd and Return'd.</summary>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Bucket.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates the pool with numberOfBuffers arrays where each buffer is of bufferLength length.
+            </summary>
+        </member>
+        <member name="P:Uno.Buffers.ArrayPool`1.Bucket.Id">
+            <summary>Gets an ID for the bucket to use with events.</summary>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Bucket.Rent">
+            <summary>Takes an array from the bucket.  If the bucket is empty, returns null.</summary>
+        </member>
+        <member name="M:Uno.Buffers.ArrayPool`1.Bucket.Return(`0[])">
+            <summary>
+            Attempts to return the buffer to the bucket.  If successful, the buffer will be stored
+            in the bucket and true will be returned; otherwise, the buffer won't be stored, and false
+            will be returned.
+            </summary>
+        </member>
+        <member name="T:Uno.Collections.HashtableEx">
+            <summary>
+            Specialized version of <see cref="T:System.Collections.Hashtable"/> providing TryGetValue and single-threaded optimizations
+            </summary>
+        </member>
+        <member name="M:Uno.Collections.HashHelpers.GetFastModMultiplier(System.UInt32)">
+            <summary>Returns approximate reciprocal of the divisor: ceil(2**64 / divisor).</summary>
+            <remarks>This should only be used on 64-bit.</remarks>
+        </member>
+        <member name="M:Uno.Collections.HashHelpers.FastMod(System.UInt32,System.UInt32,System.UInt64)">
+            <summary>Performs a mod operation using the multiplier pre-computed with <see cref="M:Uno.Collections.HashHelpers.GetFastModMultiplier(System.UInt32)"/>.</summary>
+            <remarks>This should only be used on 64-bit.</remarks>
+        </member>
+        <member name="T:Uno.UI.IndexPath">
+            <summary>
+            An index to an entry in a grouped items source.
+            </summary>
+        </member>
+        <member name="T:Uno.Foundation.Extensibility.ApiExtensibility">
+            <summary>
+            Registry for API existensibility providers, used to provide optional
+            implementations for compatible parts of WinUI and WinRT APIs.
+            </summary>
+        </member>
+        <member name="M:Uno.Foundation.Extensibility.ApiExtensibility.Register(System.Type,System.Func{System.Object,System.Object})">
+            <summary>
+            Registers an extension instance builder for the specified type
+            </summary>
+            <param name="type">The type to register</param>
+            <param name="builder">A builder that will be provided an optional owner, and returns an instance of the extension</param>
+            <remarks>This method is generally called automatically when the <see cref="T:Uno.Foundation.Extensibility.ApiExtensionAttribute"/> has been defined in an assembly.</remarks>
+        </member>
+        <member name="M:Uno.Foundation.Extensibility.ApiExtensibility.Register``1(System.Type,System.Func{``0,System.Object})">
+            <summary>
+            Registers an extension instance builder for the specified type with a strongly-typed owner.
+            </summary>
+            <typeparam name="TOwner">Type of owner.</typeparam>
+            <param name="type">The type to register</param>
+            <param name="builder">A builder that will be provided an optional owner, and returns an instance of the extension</param>
+            <remarks>This method is generally called automatically when the <see cref="T:Uno.Foundation.Extensibility.ApiExtensionAttribute"/> has been defined in an assembly.</remarks>
+        </member>
+        <member name="M:Uno.Foundation.Extensibility.ApiExtensibility.CreateInstance``1(System.Object,``0@)">
+            <summary>
+            Creates an instance of an extension of the specified <typeparamref name="T"/> type
+            </summary>
+            <typeparam name="T">A registered type</typeparam>
+            <param name="owner">An optional owner to be passed to the extension constructor</param>
+            <param name="instance">The instance if the creation was successful</param>
+            <returns>True if the creation suceeded, otherwise False.</returns>
+        </member>
+        <member name="T:Uno.Foundation.Extensibility.ApiExtensionAttribute">
+            <summary>
+            ApiExtension registration for the <see cref="T:Uno.Foundation.Extensibility.ApiExtensibility"/> class.
+            </summary>
+        </member>
+        <member name="M:Uno.Foundation.Extensibility.ApiExtensionAttribute.#ctor(System.Type,System.Type)">
+            <summary>
+            Creates an instance.
+            </summary>
+            <param name="extendedType">The type to extend</param>
+            <param name="extensionType">The type to create an instance from</param>
+        </member>
+        <member name="P:Uno.Foundation.Extensibility.ApiExtensionAttribute.ExtensionType">
+            <summary>
+            The type to extend
+            </summary>
+        </member>
+        <member name="P:Uno.Foundation.Extensibility.ApiExtensionAttribute.ExtendedType">
+            <summary>
+            The Type to create
+            </summary>
+        </member>
+        <member name="M:Uno.Extensions.UriExtensions.GetExtension(System.Uri)">
+            <summary>
+            Get extension of the traget file of the uri.
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Uno.Extensions.UriExtensions.EscapeDataString(System.String)">
+            <summary>
+            Converts a string to its escaped representation.
+            This extension bypasses the Uri.EscapeDataString characters limit.
+            </summary>
+            Source: http://stackoverflow.com/questions/6695208/uri-escapedatastring-invalid-uri-the-uri-string-is-too-long
+        </member>
+        <member name="M:Uno.Extensions.JavaObjectExtensions.RunIfNativeInstanceAvailable``1(``0,System.Action{``0},System.String,System.Int32,System.String)">
+            <summary>
+            Runs the specified action if the native Java instance of the <paramref name="instance"/> is still available.
+            </summary>
+            <typeparam name="T">An <see cref="T:Android.Runtime.IJavaObject"/> instance.</typeparam>
+            <param name="instance">The .NET instance to check</param>
+            <param name="action">The action to execute if both the .NET instance and Java instance are available.</param>
+        </member>
+        <member name="M:Uno.FoundationFeatureConfiguration.RestoreDefaults">
+            <summary>
+            Used by tests cleanup to restore the default configuration for other tests!
+            </summary>
+        </member>
+        <member name="P:Uno.FoundationFeatureConfiguration.Rect.AllowNegativeWidthHeight">
+            <summary>
+            If this flag is set to true, the <see cref="T:Windows.Foundation.Rect"/> won't throw an exception
+            if it's been created with a negative width / height.
+            This should be kept to `true` until https://github.com/unoplatform/uno/issues/606 get fixed.
+            </summary>
+            <remarks>This hides some errors from invalid measure/arrange which have to be fixed!</remarks>
+        </member>
+        <member name="M:Uno.Client.ICommandExtensions.ExecuteIfPossible(System.Windows.Input.ICommand,System.Object)">
+            <summary>
+            Executes the command if CanExecute returns true.
+            </summary>
+            <param name="command">The command</param>
+            <param name="parameter">The parameter to use with the execution</param>
+        </member>
+        <member name="T:Uno.NotImplementedAttribute">
+            <summary>
+            Marks a member or symbol as not implemented by Uno.
+            </summary>
+        </member>
+        <member name="M:Uno.NotImplementedAttribute.#ctor">
+            <summary>
+            Creates an instance
+            </summary>
+        </member>
+        <member name="M:Uno.NotImplementedAttribute.#ctor(System.String[])">
+            <summary>
+            Creates an instance with C# constants for which the symbol is not implemented.
+            </summary>
+            <param name="platforms">The list of not-implemented platforms</param>
+        </member>
+        <member name="P:Uno.NotImplementedAttribute.Platforms">
+            <summary>
+            The list of platforms that are not implemented. When empty, all platforms are not implemented.
+            </summary>
+        </member>
+        <member name="T:Uno.UnoOnlyAttribute">
+            <summary>
+            This member is only available in Uno and not part of the UWP/WinUI contract.
+            </summary>
+        </member>
+    </members>
+</doc>

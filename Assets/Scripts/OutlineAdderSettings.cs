@@ -18,10 +18,6 @@ public class OutlineAdderSettings : MonoBehaviour
     public GameObject[] whitelist;
     [Tooltip("The only GameObjects to *not* have an outline applied to them")]
     public GameObject[] blacklist;
-    [Tooltip("The colour that each outline should be")]
-    public Color outlineColour = Color.black;
-    [Tooltip("The width that each outline should be")]
-    public float outlineWidth = 7f;
 
     private void Start()
     {
@@ -43,12 +39,20 @@ public class OutlineAdderSettings : MonoBehaviour
             // ...then blacklist...
             else if (blacklist.Length > 0)
             {
+                bool isOnList = false;
+
                 for (int k = 0; k < blacklist.Length; k++)
                 {
-                    if (!allMeshes[i].gameObject.Equals(blacklist[k]))
+                    if (allMeshes[i].gameObject.Equals(blacklist[k]))
                     {
-                        addOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's not on the whitelist
+                        isOnList = true;
+                        break;
                     }
+                }
+
+                if (!isOnList)
+                {
+                    addOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's not on the blacklist
                 }
             }
             // ...then neither
@@ -65,14 +69,14 @@ public class OutlineAdderSettings : MonoBehaviour
     /// <param name="givenGameObject">GameObject to be given an outline</param>
     private void addOutline(GameObject givenGameObject)
     {
+        MeshRenderer gameObjectMeshRenderer = givenGameObject.GetComponent<MeshRenderer>();
+        Shader gameObjectShader = Resources.Load<Shader>("OutlineMaterial");
+
         // Making sure that the GameObject doesn't already have an outline
-        if (!givenGameObject.GetComponent<Outline>())
+        if (gameObjectMeshRenderer != null && gameObjectMeshRenderer.material.shader != gameObjectShader)
         {
-            // Creating and setting parameters of the outline
-            Outline newOutline = givenGameObject.AddComponent<Outline>();
-            newOutline.OutlineMode = Outline.Mode.OutlineVisible;
-            newOutline.OutlineColor = outlineColour;
-            newOutline.OutlineWidth = outlineWidth;
+            // Creating the outline
+            gameObjectMeshRenderer.material.shader = gameObjectShader;
         }
     }
 }
