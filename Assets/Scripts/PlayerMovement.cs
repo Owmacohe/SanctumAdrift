@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private InputTypes inputType;
 
     private Rigidbody rb;
-    private bool isJumping, isOnGround, isControllerConnected;
+    private bool isOnGround, isOnWall, isControllerConnected;
     private float controllerSensitivity = 0.1f;
 
     private void Start()
@@ -37,37 +37,44 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.y);
         }
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (!isOnGround && isOnWall)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speed);
-            inputType = InputTypes.Keyboard;
+            rb.velocity = Vector3.up * rb.velocity.y;
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speed);
+                inputType = InputTypes.Keyboard;
+            }
+
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -speed);
+                inputType = InputTypes.Keyboard;
+            }
+
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                rb.velocity = new Vector3(speed, rb.velocity.y, rb.velocity.z);
+                inputType = InputTypes.Keyboard;
+            }
+
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                rb.velocity = new Vector3(-speed, rb.velocity.y, rb.velocity.z);
+                inputType = InputTypes.Keyboard;
+            }
         }
 
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -speed);
-            inputType = InputTypes.Keyboard;
-        }
-
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            rb.velocity = new Vector3(speed, rb.velocity.y, rb.velocity.z);
-            inputType = InputTypes.Keyboard;
-        }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            rb.velocity = new Vector3(-speed, rb.velocity.y, rb.velocity.z);
-            inputType = InputTypes.Keyboard;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             rb.velocity = new Vector3(rb.velocity.x, speed, rb.velocity.z);
             inputType = InputTypes.Keyboard;
-            isJumping = true;
         }
 
+        /*
         checkControllerState();
 
         if (isControllerConnected)
@@ -91,38 +98,52 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(controllerVelocity.x * speed, controllerVelocity.y, controllerVelocity.z * speed);
             }
 
-            if (Input.GetButtonDown("Jump") && !isJumping && isOnGround)
+            if (Input.GetButtonDown("Jump") && isOnGround)
             {
                 rb.velocity = new Vector3(rb.velocity.x, speed, rb.velocity.z);
-                isJumping = true;
             }
         }
         else
         {
             inputType = InputTypes.Keyboard;
         }
+        */
 
         print("<b>[INPUT TYPE]:</b> " + inputType);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.Equals(ground))
+        if (!other.gameObject.Equals(gameObject))
         {
-            isOnGround = true;
-            isJumping = false;
+            if (other.gameObject.Equals(ground))
+            {
+                isOnGround = true;
 
-            rb.drag = 2 * speed;
+                rb.drag = 2 * speed;
+            }
+            else
+            {
+                isOnWall = true;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.Equals(ground))
+        if (!other.gameObject.Equals(gameObject))
         {
-            isOnGround = false;
+            if (other.gameObject.Equals(ground))
+            {
+                isOnGround = false;
 
-            rb.drag = -(speed / 2);
+                rb.drag = -(speed / 2);
+            }
+            else
+            {
+                isOnWall = false;
+                print("off wall " + Time.time);
+            }
         }
     }
 
