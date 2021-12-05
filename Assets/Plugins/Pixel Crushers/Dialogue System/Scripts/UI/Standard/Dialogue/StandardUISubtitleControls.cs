@@ -679,6 +679,7 @@ namespace PixelCrushers.DialogueSystem
 
         #endregion
 
+        /*
         #region Typewriter Speed
 
         public virtual float GetTypewriterSpeed()
@@ -711,7 +712,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         #endregion
-
+        */
     }
 
 }

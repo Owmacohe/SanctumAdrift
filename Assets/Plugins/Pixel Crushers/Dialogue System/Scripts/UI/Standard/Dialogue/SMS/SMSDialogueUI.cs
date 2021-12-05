@@ -259,8 +259,8 @@ namespace PixelCrushers.DialogueSystem
             }
             if (isLoadingGame)
             {
-                var typewriter = panel.GetTypewriter();
-                if (typewriter != null) typewriter.Stop();
+                //var typewriter = panel.GetTypewriter();
+                //if (typewriter != null) typewriter.Stop();
             }
             if (maxMessages > 0 && instantiatedMessages.Count > maxMessages)
             {

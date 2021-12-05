@@ -1,5 +1,6 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -18,7 +19,7 @@ namespace PixelCrushers.DialogueSystem
         public UnityEngine.UI.Button button;
 
         [Tooltip("Text element to display response text.")]
-        public UITextField label;
+        public TMP_Text label;
 
         [Tooltip("Apply emphasis tag colors to button text.")]
         public bool setLabelColor = true;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -21,10 +22,10 @@ namespace PixelCrushers.DialogueSystem
         public UnityEngine.UI.Image portraitImage;
 
         [Tooltip("(Optional) Text element for actor's name.")]
-        public UITextField portraitName;
+        public TMP_Text portraitName;
 
         [Tooltip("Subtitle text.")]
-        public UITextField subtitleText;
+        public TMP_Text subtitleText;
 
         [Tooltip("Add speaker's name to subtitle text.")]
         public bool addSpeakerName = false;
@@ -164,6 +165,7 @@ namespace PixelCrushers.DialogueSystem
 
         #endregion
 
+        /*
         #region Typewriter Control
 
         /// <summary>
@@ -199,6 +201,7 @@ namespace PixelCrushers.DialogueSystem
         }
 
         #endregion
+        */
 
         #region Show & Hide
 
@@ -413,8 +416,8 @@ namespace PixelCrushers.DialogueSystem
         {
             Tools.SetGameObjectActive(panel, value);
             Tools.SetGameObjectActive(portraitImage, value && portraitImage != null && portraitImage.sprite != null);
-            portraitName.SetActive(value);
-            subtitleText.SetActive(value);
+            portraitName.enabled = value;
+            subtitleText.enabled = value;
             Tools.SetGameObjectActive(continueButton, false); // Let ConversationView determine if continueButton should be shown.
         }
 
@@ -456,8 +459,8 @@ namespace PixelCrushers.DialogueSystem
         public virtual void FinishSubtitle()
         {
             HideContinueButton();
-            var typewriter = GetTypewriter();
-            if (typewriter != null && typewriter.isPlaying) typewriter.Stop();
+            //var typewriter = GetTypewriter();
+            //if (typewriter != null && typewriter.isPlaying) typewriter.Stop();
         }
 
         /// <summary>
@@ -501,11 +504,12 @@ namespace PixelCrushers.DialogueSystem
                     UITools.SendTextChangeMessage(portraitName);
                 }
             }
-            TypewriterUtility.StopTyping(subtitleText);
+            //TypewriterUtility.StopTyping(subtitleText);
             var previousText = accumulateText ? m_accumulatedText : string.Empty;
             var previousChars = accumulateText ? UITools.StripRPGMakerCodes(Tools.StripTextMeshProTags(Tools.StripRichTextCodes(previousText))).Length : 0;
             SetFormattedText(subtitleText, previousText, subtitle.formattedText);
             if (accumulateText) m_accumulatedText = subtitleText.text + "\n";
+            /*
             if (scrollbarEnabler != null && !HasTypewriter())
             {
                 scrollbarEnabler.CheckScrollbarWithResetValue(0);
@@ -518,6 +522,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 TypewriterUtility.StartTyping(subtitleText, subtitleText.text, previousChars);
             }
+            */
             frameLastSetContent = Time.frameCount;
         }
 
@@ -533,7 +538,7 @@ namespace PixelCrushers.DialogueSystem
             TypewriterUtility.StartTyping(subtitleText, text, fromIndex);
         }
 
-        protected virtual void SetFormattedText(UITextField textField, string previousText, FormattedText formattedText)
+        protected virtual void SetFormattedText(TMP_Text textField, string previousText, FormattedText formattedText)
         {
             textField.text = previousText + UITools.GetUIFormattedText(formattedText);
             UITools.SendTextChangeMessage(textField);

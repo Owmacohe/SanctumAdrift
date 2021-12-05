@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -137,6 +138,15 @@ namespace PixelCrushers.DialogueSystem
         /// Sends "OnTextChange(textField)" to the dialogue UI GameObject.
         /// </summary>
         public static void SendTextChangeMessage(UITextField textField)
+        {
+            if (textField.gameObject == null) return;
+            textField.gameObject.SendMessage(DialogueSystemMessages.OnTextChange, textField, SendMessageOptions.DontRequireReceiver);
+        }
+
+        /// <summary>
+        /// Sends "OnTextChange(TMP_Text)" to the dialogue UI GameObject.
+        /// </summary>
+        public static void SendTextChangeMessage(TMP_Text textField)
         {
             if (textField.gameObject == null) return;
             textField.gameObject.SendMessage(DialogueSystemMessages.OnTextChange, textField, SendMessageOptions.DontRequireReceiver);

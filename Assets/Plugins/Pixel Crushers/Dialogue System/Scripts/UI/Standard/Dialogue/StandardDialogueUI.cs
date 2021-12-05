@@ -204,6 +204,7 @@ namespace PixelCrushers.DialogueSystem
             conversationUIElements.standardSubtitleControls.HideSubtitle(subtitle);
         }
 
+        /*
         /// <summary>
         /// Returns the speed of the first typewriter effect found.
         /// </summary>
@@ -219,6 +220,7 @@ namespace PixelCrushers.DialogueSystem
         {
             conversationUIElements.standardSubtitleControls.SetTypewriterSpeed(charactersPerSecond);
         }
+        */
 
         /// <summary>
         /// Changes a dialogue actor's subtitle panel for the currently active conversation.
