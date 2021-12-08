@@ -163,8 +163,9 @@ namespace Febucci.UI
 
         #region Inspector
 
+        [HideInInspector]
         [SerializeField, Tooltip("If true, the typewriter is triggered automatically once the TMPro text changes (requires a TextAnimatorPlayer component). Otherwise, it shows the entire text instantly.")]
-        bool triggerAnimPlayerOnChange = false;
+        public bool triggerAnimPlayerOnChange = false;
 
         [SerializeField]
         float effectIntensityMultiplier = 50;
@@ -366,7 +367,8 @@ namespace Febucci.UI
         List<BehaviorBase> behaviorEffects = new List<BehaviorBase>();
         List<AppearanceBase> appearanceEffects = new List<AppearanceBase>();
         List<AppearanceBase> disappearanceEffects = new List<AppearanceBase>();
-        AppearanceBase[] fallbackAppearanceEffects;
+        [HideInInspector]
+        public AppearanceBase[] fallbackAppearanceEffects;
         AppearanceBase[] fallbackDisappearanceEffects;
         BehaviorBase[] fallbackBehaviorEffects;
 

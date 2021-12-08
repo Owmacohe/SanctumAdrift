@@ -7,7 +7,7 @@ namespace Febucci.UI.Core
     class OffsetAppearance : AppearanceBase
     {
 
-        float amount;
+        public float amount;
         Vector2 direction;
 
         public override void SetDefaultValues(AppearanceDefaultValues data)

@@ -424,6 +424,10 @@ PrefabInstance:
       propertyPath: initialDatabase
       value: 
       objectReference: {fileID: 11400000, guid: c562247f387af1548a3d1add6f864be0, type: 2}
+    - target: {fileID: 3526817645975180127, guid: 1a3a446b2a25bf143a0b8a747d8b1d1a, type: 3}
+      propertyPath: displaySettings.subtitleSettings.subtitleCharsPerSecond
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a3a446b2a25bf143a0b8a747d8b1d1a, type: 3}
 --- !u!1001 &6660526257960462852
