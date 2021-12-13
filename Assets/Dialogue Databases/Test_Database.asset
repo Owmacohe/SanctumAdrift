@@ -219,7 +219,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Hello!
+        value: Hello! This is a nice long message to show how much text can be fit
+          in this box!
         type: 0
         typeString: 
       - title: Sequence
@@ -424,7 +425,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 672
+        x: 648
         y: 228
         width: 160
         height: 30
