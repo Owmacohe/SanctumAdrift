@@ -432,6 +432,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conversation_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9005513114980185058, guid: fc65cf691c6692f449891504a154431e, type: 3}
+      propertyPath: standardDialogueUISettings.subtitleColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005513114980185058, guid: fc65cf691c6692f449891504a154431e, type: 3}
+      propertyPath: standardDialogueUISettings.subtitleColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005513114980185058, guid: fc65cf691c6692f449891504a154431e, type: 3}
+      propertyPath: standardDialogueUISettings.subtitleColor.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc65cf691c6692f449891504a154431e, type: 3}
 --- !u!1001 &7861023919815098301
