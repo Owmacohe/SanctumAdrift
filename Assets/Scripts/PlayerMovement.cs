@@ -5,14 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
-    public GameObject ground;
+    public float jumpHeight;
+    public float bufferDistance;
 
-    private enum InputTypes { None, Keyboard, Controller }
-    private InputTypes inputType;
+    private enum inputTypes { None, Keyboard, Controller }
+    private inputTypes inputType = inputTypes.Keyboard;
 
     private Rigidbody rb;
-    private bool isOnGround, isOnWall, isControllerConnected;
-    private float controllerSensitivity = 0.1f;
+    private bool wallFront, wallBack, wallRight, wallLeft;
+    private bool isOnGround, isControllerConnected;
 
     private void Start()
     {
@@ -20,131 +21,108 @@ public class PlayerMovement : MonoBehaviour
 
         checkControllerState();
 
-        if (!isControllerConnected)
+        if (isControllerConnected)
         {
-            inputType = InputTypes.Keyboard;
-        }
-        else
-        {
-            inputType = InputTypes.Controller;
+            inputType = inputTypes.Controller;
         }
     }
 
     private void Update()
     {
-        if (transform.rotation.x != 0 || transform.rotation.z != 0)
-        {
-            transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.y);
-        }
+        checkControllerState();
+        checkCloseness();
+        transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.y);
 
-        if (!isOnGround && isOnWall)
-        {
-            rb.velocity = Vector3.up * rb.velocity.y;
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speed);
-                inputType = InputTypes.Keyboard;
-            }
-
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -speed);
-                inputType = InputTypes.Keyboard;
-            }
-
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                rb.velocity = new Vector3(speed, rb.velocity.y, rb.velocity.z);
-                inputType = InputTypes.Keyboard;
-            }
-
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                rb.velocity = new Vector3(-speed, rb.velocity.y, rb.velocity.z);
-                inputType = InputTypes.Keyboard;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, speed, rb.velocity.z);
-            inputType = InputTypes.Keyboard;
-        }
+        Vector2 controllerInput = new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
 
         /*
-        checkControllerState();
-
-        if (isControllerConnected)
+        if (controllerInput.x <= 0.1)
         {
-            Vector3 controllerVelocity = new Vector3(Input.GetAxis("Horizontal"), rb.velocity.y, Input.GetAxis("Vertical"));
+            controllerInput.x = 0;
+        }
 
-            if (controllerVelocity.x > -controllerSensitivity && controllerVelocity.x < controllerSensitivity)
+        if (controllerInput.y <= 0.1)
+        {
+            controllerInput.y = 0;
+        }
+        */
+
+        if (controllerInput.x != 0 || controllerInput.y != 0)
+        {
+            inputType = inputTypes.Controller;
+        }
+
+        if (inputType.Equals(inputTypes.Controller))
+        {
+            if (!wallFront && controllerInput.x > 0)
             {
-                controllerVelocity.x = 0;
+                transform.position += Vector3.forward * speed * 0.01f;
             }
 
-            if (controllerVelocity.z > -controllerSensitivity && controllerVelocity.z < controllerSensitivity)
+            if (!wallBack && controllerInput.x < 0)
             {
-                controllerVelocity.z = 0;
+                transform.position += -Vector3.forward * speed * 0.01f;
             }
 
-            if (controllerVelocity.x != 0 || controllerVelocity.z != 0)
+            if (!wallRight && controllerInput.y > 0)
             {
-                inputType = InputTypes.Controller;
+                transform.position += Vector3.right * speed * 0.01f;
+            }
 
-                rb.velocity = new Vector3(controllerVelocity.x * speed, controllerVelocity.y, controllerVelocity.z * speed);
+            if (!wallLeft && controllerInput.y < 0)
+            {
+                transform.position += -Vector3.right * speed * 0.01f;
             }
 
             if (Input.GetButtonDown("Jump") && isOnGround)
             {
-                rb.velocity = new Vector3(rb.velocity.x, speed, rb.velocity.z);
+                inputType = inputTypes.Controller;
+
+                rb.velocity += Vector3.up * jumpHeight;
             }
         }
         else
         {
-            inputType = InputTypes.Keyboard;
-        }
-        */
+            inputType = inputTypes.Keyboard;
 
+            if (!wallFront && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)))
+            {
+                inputType = inputTypes.Keyboard;
+
+                transform.position += Vector3.forward * speed * 0.01f;
+            }
+
+            if (!wallBack && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
+            {
+                inputType = inputTypes.Keyboard;
+
+                transform.position += -Vector3.forward * speed * 0.01f;
+            }
+
+            if (!wallRight && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
+            {
+                inputType = inputTypes.Keyboard;
+
+                transform.position += Vector3.right * speed * 0.01f;
+            }
+
+            if (!wallLeft && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)))
+            {
+                inputType = inputTypes.Keyboard;
+
+                transform.position += -Vector3.right * speed * 0.01f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            {
+                inputType = inputTypes.Keyboard;
+
+                rb.velocity += Vector3.up * jumpHeight;
+            }
+        }
+
+        //print(wallFront + " " + wallBack + " " + wallRight + " " + wallLeft + " " + Time.time);
         print("<b>[INPUT TYPE]:</b> " + inputType);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.gameObject.Equals(gameObject))
-        {
-            if (other.gameObject.Equals(ground))
-            {
-                isOnGround = true;
-
-                rb.drag = 2 * speed;
-            }
-            else
-            {
-                isOnWall = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.gameObject.Equals(gameObject))
-        {
-            if (other.gameObject.Equals(ground))
-            {
-                isOnGround = false;
-
-                rb.drag = -(speed / 2);
-            }
-            else
-            {
-                isOnWall = false;
-                print("off wall " + Time.time);
-            }
-        }
     }
 
     private void checkControllerState()
@@ -158,6 +136,69 @@ public class PlayerMovement : MonoBehaviour
         else if (controllers.Length > 0 && !controllers[0].Equals(""))
         {
             isControllerConnected = true;
+        }
+    }
+
+    private void checkCloseness()
+    {
+        Vector3[] dirs = { Vector3.forward, -Vector3.forward, Vector3.right, -Vector3.right };
+
+        foreach (Vector3 i in dirs)
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(i), bufferDistance))
+            {
+                if (i.Equals(Vector3.forward))
+                {
+                    wallFront = true;
+                }
+                else if (i.Equals(-Vector3.forward))
+                {
+                    wallBack = true;
+                }
+                else if (i.Equals(Vector3.right))
+                {
+                    wallRight = true;
+                }
+                else if (i.Equals(-Vector3.right))
+                {
+                    wallLeft = true;
+                }
+            }
+            else
+            {
+                if (i.Equals(Vector3.forward))
+                {
+                    wallFront = false;
+                }
+                else if (i.Equals(-Vector3.forward))
+                {
+                    wallBack = false;
+                }
+                else if (i.Equals(Vector3.right))
+                {
+                    wallRight = false;
+                }
+                else if (i.Equals(-Vector3.right))
+                {
+                    wallLeft = false;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.Equals(gameObject))
+        {
+            isOnGround = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.gameObject.Equals(gameObject))
+        {
+            isOnGround = false;
         }
     }
 }
