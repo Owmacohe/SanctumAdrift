@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
-    public float jumpHeight;
-    public float bufferDistance;
+    public float movementSpeed = 1.5f;
+    public float mouseRotationSpeed = 2;
+    public float joystickRotationSpeed = 0.4f;
+    public float jumpHeight = 10;
 
     private enum inputTypes { None, Keyboard, Controller }
     private inputTypes inputType = inputTypes.Keyboard;
 
     private Rigidbody rb;
-    private bool wallFront, wallBack, wallRight, wallLeft;
-    private bool isOnGround, isControllerConnected;
+    private Quaternion lastRotation = Quaternion.identity;
+    //private GameObject cameraObject;
+    //private float cameraStartRotation;
+    //private Quaternion lastCameraRotation;
+    private GroundChecker gc;
+    private bool isOnGround, isOnWall;
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         rb = GetComponent<Rigidbody>();
+        gc = GetComponentInChildren<GroundChecker>();
+        //cameraObject = GetComponentInChildren<Camera>().gameObject;
+        //cameraStartRotation = cameraObject.transform.rotation.x;
 
-        checkControllerState();
+        string[] controllers = Input.GetJoystickNames();
 
-        if (isControllerConnected)
+        if (controllers.Length > 0 && !controllers[0].Equals(""))
         {
             inputType = inputTypes.Controller;
         }
@@ -29,176 +39,140 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        checkControllerState();
-        checkCloseness();
-        transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.y);
+        isOnGround = gc.isOnGround;
 
-        Vector2 controllerInput = new Vector3(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-
-        /*
-        if (controllerInput.x <= 0.1)
+        if (isOnGround)
         {
-            controllerInput.x = 0;
+            isOnWall = false;
         }
 
-        if (controllerInput.y <= 0.1)
+        transform.rotation = Quaternion.Euler(Vector3.up * transform.localRotation.eulerAngles.y);
+
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 controllerInputRight = new Vector2(Input.GetAxis("VerticalRight"), Input.GetAxis("HorizontalRight"));
+        Vector2 controllerInputLeft = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+
+        if (mouseInput.Equals(Vector2.zero) && controllerInputRight.Equals(Vector2.zero))
         {
-            controllerInput.y = 0;
-        }
-        */
-
-        if (controllerInput.x != 0 || controllerInput.y != 0)
-        {
-            inputType = inputTypes.Controller;
+            transform.rotation = lastRotation;
         }
 
-        if (inputType.Equals(inputTypes.Controller))
-        {
-            if (!wallFront && controllerInput.x > 0)
-            {
-                transform.position += Vector3.forward * speed * 0.01f;
-            }
-
-            if (!wallBack && controllerInput.x < 0)
-            {
-                transform.position += -Vector3.forward * speed * 0.01f;
-            }
-
-            if (!wallRight && controllerInput.y > 0)
-            {
-                transform.position += Vector3.right * speed * 0.01f;
-            }
-
-            if (!wallLeft && controllerInput.y < 0)
-            {
-                transform.position += -Vector3.right * speed * 0.01f;
-            }
-
-            if (Input.GetButtonDown("Jump") && isOnGround)
-            {
-                inputType = inputTypes.Controller;
-
-                rb.velocity += Vector3.up * jumpHeight;
-            }
-        }
-        else
+        if (!mouseInput.Equals(Vector2.zero))
         {
             inputType = inputTypes.Keyboard;
 
-            if (!wallFront && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)))
-            {
-                inputType = inputTypes.Keyboard;
+            transform.Rotate(0, mouseInput.x * mouseRotationSpeed, 0, Space.World);
 
-                transform.position += Vector3.forward * speed * 0.01f;
+            if (!transform.rotation.Equals(lastRotation))
+            {
+                lastRotation = transform.rotation;
             }
 
-            if (!wallBack && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
+            /*
+            float maxCameraRotation = cameraStartRotation + 0.01f;
+            float minCameraRotation = cameraStartRotation - 0.01f;
+
+            if (cameraObject.transform.rotation.x <= maxCameraRotation && cameraObject.transform.rotation.x >= minCameraRotation)
             {
-                inputType = inputTypes.Keyboard;
+                if (!lastCameraRotation.Equals(cameraObject.transform.rotation))
+                {
+                    lastCameraRotation = cameraObject.transform.rotation;
+                }
 
-                transform.position += -Vector3.forward * speed * 0.01f;
+                cameraObject.transform.Rotate(-mouseInput.y * mouseRotationSpeed, 0, 0, Space.Self);
             }
-
-            if (!wallRight && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
+            else
             {
-                inputType = inputTypes.Keyboard;
-
-                transform.position += Vector3.right * speed * 0.01f;
+                cameraObject.transform.rotation = lastCameraRotation;
             }
+            */
+        }
 
-            if (!wallLeft && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            movePlayer(inputTypes.Keyboard, transform.forward);
+        }
+
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            movePlayer(inputTypes.Keyboard, -transform.forward);
+        }
+
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            movePlayer(inputTypes.Keyboard, transform.right);
+        }
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            movePlayer(inputTypes.Keyboard, -transform.right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            inputType = inputTypes.Keyboard;
+
+            rb.velocity += Vector3.up * jumpHeight;
+        }
+
+        if (!controllerInputRight.Equals(Vector2.zero))
+        {
+            inputType = inputTypes.Controller;
+
+            transform.Rotate(0, controllerInputRight.x * joystickRotationSpeed, 0, Space.World);
+
+            if (!transform.rotation.Equals(lastRotation))
             {
-                inputType = inputTypes.Keyboard;
-
-                transform.position += -Vector3.right * speed * 0.01f;
+                lastRotation = transform.rotation;
             }
+        }
 
-            if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-            {
-                inputType = inputTypes.Keyboard;
+        if (controllerInputLeft.x > 0)
+        {
+            movePlayer(inputTypes.Controller, transform.forward);
+        }
 
-                rb.velocity += Vector3.up * jumpHeight;
-            }
+        if (controllerInputLeft.x < 0)
+        {
+            movePlayer(inputTypes.Controller, -transform.forward);
+        }
+
+        if (controllerInputLeft.y > 0)
+        {
+            movePlayer(inputTypes.Controller, transform.right);
+        }
+
+        if (controllerInputLeft.y < 0)
+        {
+            movePlayer(inputTypes.Controller, -transform.right);
+        }
+
+        if (Input.GetButtonDown("Jump") && isOnGround)
+        {
+            inputType = inputTypes.Controller;
+
+            rb.velocity += Vector3.up * jumpHeight;
         }
 
         //print(wallFront + " " + wallBack + " " + wallRight + " " + wallLeft + " " + Time.time);
         print("<b>[INPUT TYPE]:</b> " + inputType);
     }
 
-    private void checkControllerState()
+    private void movePlayer(inputTypes input, Vector3 dir)
     {
-        string[] controllers = Input.GetJoystickNames();
+        inputType = input;
 
-        if (controllers.Length <= 0 || controllers[0].Equals(""))
+        if (isOnGround || (!isOnGround && !isOnWall))
         {
-            isControllerConnected = false;
-        }
-        else if (controllers.Length > 0 && !controllers[0].Equals(""))
-        {
-            isControllerConnected = true;
-        }
-    }
-
-    private void checkCloseness()
-    {
-        Vector3[] dirs = { Vector3.forward, -Vector3.forward, Vector3.right, -Vector3.right };
-
-        foreach (Vector3 i in dirs)
-        {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(i), bufferDistance))
-            {
-                if (i.Equals(Vector3.forward))
-                {
-                    wallFront = true;
-                }
-                else if (i.Equals(-Vector3.forward))
-                {
-                    wallBack = true;
-                }
-                else if (i.Equals(Vector3.right))
-                {
-                    wallRight = true;
-                }
-                else if (i.Equals(-Vector3.right))
-                {
-                    wallLeft = true;
-                }
-            }
-            else
-            {
-                if (i.Equals(Vector3.forward))
-                {
-                    wallFront = false;
-                }
-                else if (i.Equals(-Vector3.forward))
-                {
-                    wallBack = false;
-                }
-                else if (i.Equals(Vector3.right))
-                {
-                    wallRight = false;
-                }
-                else if (i.Equals(-Vector3.right))
-                {
-                    wallLeft = false;
-                }
-            }
+            rb.position += dir * movementSpeed * 0.01f;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.Equals(gameObject))
+        if (!other.gameObject.Equals(gc.gameObject) && ((gc.groundObject != null && !other.gameObject.Equals(gc.groundObject)) || gc.groundObject == null))
         {
-            isOnGround = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.gameObject.Equals(gameObject))
-        {
-            isOnGround = false;
+            isOnWall = true;
         }
     }
 }
