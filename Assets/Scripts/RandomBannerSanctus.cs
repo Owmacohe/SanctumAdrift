@@ -46,7 +46,7 @@ public class RandomBannerSanctus : MonoBehaviour
             }
 
             // Creating and positioning the new letter
-            GameObject newLetter = Instantiate(Resources.Load<GameObject>("Prefabs/SanctusLetter"), transform);
+            GameObject newLetter = Instantiate(Resources.Load<GameObject>("Misc/SanctusLetter"), transform);
             newLetter.transform.position = new Vector3(
                 transform.position.x,
                 transform.position.y + (offset * (i + 1)),

@@ -1,13 +1,3 @@
-/// ----------------------------------------------------------------------
-/// Updates render pixelation resolution based on an inspector enum
-/// 
-/// @project Sanctum Adrift
-/// @version 1.0
-/// @organization Lightsea Studio
-/// @author Owen Hellum
-/// @date September 2021
-/// ----------------------------------------------------------------------
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,5 +47,10 @@ public class PixelRenderSettings : MonoBehaviour
         RawImage image = GetComponent<RawImage>();
         image.texture.width = width;
         image.texture.height = height;
+    }
+
+    private void Update()
+    {
+        print(Input.mousePosition + " " + Time.time);
     }
 }

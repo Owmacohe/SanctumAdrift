@@ -7,16 +7,13 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 1.5f;
     public float mouseRotationSpeed = 2;
     public float joystickRotationSpeed = 0.4f;
-    public float jumpHeight = 10;
+    public float jumpHeight = 5;
 
     private enum inputTypes { None, Keyboard, Controller }
     private inputTypes inputType = inputTypes.Keyboard;
 
     private Rigidbody rb;
     private Quaternion lastRotation = Quaternion.identity;
-    //private GameObject cameraObject;
-    //private float cameraStartRotation;
-    //private Quaternion lastCameraRotation;
     private GroundChecker gc;
     private bool isOnGround, isOnWall;
 
@@ -26,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         gc = GetComponentInChildren<GroundChecker>();
-        //cameraObject = GetComponentInChildren<Camera>().gameObject;
-        //cameraStartRotation = cameraObject.transform.rotation.x;
 
         string[] controllers = Input.GetJoystickNames();
 
@@ -44,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         if (isOnGround)
         {
             isOnWall = false;
+            rb.drag = 3;
         }
 
         transform.rotation = Quaternion.Euler(Vector3.up * transform.localRotation.eulerAngles.y);
@@ -67,25 +63,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 lastRotation = transform.rotation;
             }
-
-            /*
-            float maxCameraRotation = cameraStartRotation + 0.01f;
-            float minCameraRotation = cameraStartRotation - 0.01f;
-
-            if (cameraObject.transform.rotation.x <= maxCameraRotation && cameraObject.transform.rotation.x >= minCameraRotation)
-            {
-                if (!lastCameraRotation.Equals(cameraObject.transform.rotation))
-                {
-                    lastCameraRotation = cameraObject.transform.rotation;
-                }
-
-                cameraObject.transform.Rotate(-mouseInput.y * mouseRotationSpeed, 0, 0, Space.Self);
-            }
-            else
-            {
-                cameraObject.transform.rotation = lastCameraRotation;
-            }
-            */
         }
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -111,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             inputType = inputTypes.Keyboard;
+
+            Invoke("limitDrag", jumpHeight / 30);
 
             rb.velocity += Vector3.up * jumpHeight;
         }
@@ -151,11 +130,18 @@ public class PlayerMovement : MonoBehaviour
         {
             inputType = inputTypes.Controller;
 
+            Invoke("limitDrag", jumpHeight / 30);
+
             rb.velocity += Vector3.up * jumpHeight;
         }
 
         //print(wallFront + " " + wallBack + " " + wallRight + " " + wallLeft + " " + Time.time);
         print("<b>[INPUT TYPE]:</b> " + inputType);
+    }
+
+    private void limitDrag()
+    {
+        rb.drag = -3;
     }
 
     private void movePlayer(inputTypes input, Vector3 dir)

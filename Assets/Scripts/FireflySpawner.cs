@@ -17,7 +17,7 @@ public class FireflySpawner : MonoBehaviour
     {
         Vector3 halfBoxSize = box.bounds.size / 2;
 
-        GameObject firefly = Instantiate(Resources.Load<GameObject>("Firefly"), gameObject.transform);
+        GameObject firefly = Instantiate(Resources.Load<GameObject>("Spawnables/Firefly"), gameObject.transform);
         firefly.GetComponent<FireflyFlutter>().halfSpawnerBoxSize = halfBoxSize;
 
         firefly.transform.localPosition = new Vector3(

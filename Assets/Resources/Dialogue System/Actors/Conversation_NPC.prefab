@@ -222,4 +222,4 @@ MonoBehaviour:
     setSubtitleColor: 1
     applyColorToPrependedName: 0
     prependActorNameSeparator: ': '
-    subtitleColor: {r: 0.34901962, g: 0.54901963, b: 0.6509804, a: 1}
+    subtitleColor: {r: 0.6117647, g: 0.7882353, b: 0.6392157, a: 1}
