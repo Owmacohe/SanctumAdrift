@@ -48,9 +48,4 @@ public class PixelRenderSettings : MonoBehaviour
         image.texture.width = width;
         image.texture.height = height;
     }
-
-    private void Update()
-    {
-        print(Input.mousePosition + " " + Time.time);
-    }
 }

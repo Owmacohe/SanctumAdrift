@@ -13,15 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private inputTypes inputType = inputTypes.Keyboard;
 
     private Rigidbody rb;
-    private Quaternion lastRotation = Quaternion.identity;
     private GroundChecker gc;
-    private bool isOnGround, isOnWall;
+    private bool isOnGround, isOnWall, isMovementPaused;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
         gc = GetComponentInChildren<GroundChecker>();
 
         string[] controllers = Input.GetJoystickNames();
@@ -42,107 +42,94 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 3;
         }
 
-        transform.rotation = Quaternion.Euler(Vector3.up * transform.localRotation.eulerAngles.y);
+        //transform.rotation = Quaternion.Euler(Vector3.up * transform.localRotation.eulerAngles.y);
 
-        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        Vector2 controllerInputRight = new Vector2(Input.GetAxis("VerticalRight"), Input.GetAxis("HorizontalRight"));
-        Vector2 controllerInputLeft = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-
-        if (mouseInput.Equals(Vector2.zero) && controllerInputRight.Equals(Vector2.zero))
+        if (!isMovementPaused)
         {
-            transform.rotation = lastRotation;
-        }
+            Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            Vector2 controllerInputRight = new Vector2(Input.GetAxis("VerticalRight"), Input.GetAxis("HorizontalRight"));
+            Vector2 controllerInputLeft = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
 
-        if (!mouseInput.Equals(Vector2.zero))
-        {
-            inputType = inputTypes.Keyboard;
-
-            transform.Rotate(0, mouseInput.x * mouseRotationSpeed, 0, Space.World);
-
-            if (!transform.rotation.Equals(lastRotation))
+            if (!mouseInput.Equals(Vector2.zero))
             {
-                lastRotation = transform.rotation;
+                inputType = inputTypes.Keyboard;
+
+                transform.Rotate(0, mouseInput.x * mouseRotationSpeed, 0, Space.World);
             }
-        }
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            movePlayer(inputTypes.Keyboard, transform.forward);
-        }
-
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            movePlayer(inputTypes.Keyboard, -transform.forward);
-        }
-
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            movePlayer(inputTypes.Keyboard, transform.right);
-        }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            movePlayer(inputTypes.Keyboard, -transform.right);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            inputType = inputTypes.Keyboard;
-
-            Invoke("limitDrag", jumpHeight / 30);
-
-            rb.velocity += Vector3.up * jumpHeight;
-        }
-
-        if (!controllerInputRight.Equals(Vector2.zero))
-        {
-            inputType = inputTypes.Controller;
-
-            transform.Rotate(0, controllerInputRight.x * joystickRotationSpeed, 0, Space.World);
-
-            if (!transform.rotation.Equals(lastRotation))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
-                lastRotation = transform.rotation;
+                movePlayer(inputTypes.Keyboard, transform.forward);
             }
-        }
 
-        if (controllerInputLeft.x > 0)
-        {
-            movePlayer(inputTypes.Controller, transform.forward);
-        }
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                movePlayer(inputTypes.Keyboard, -transform.forward);
+            }
 
-        if (controllerInputLeft.x < 0)
-        {
-            movePlayer(inputTypes.Controller, -transform.forward);
-        }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                movePlayer(inputTypes.Keyboard, transform.right);
+            }
 
-        if (controllerInputLeft.y > 0)
-        {
-            movePlayer(inputTypes.Controller, transform.right);
-        }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                movePlayer(inputTypes.Keyboard, -transform.right);
+            }
 
-        if (controllerInputLeft.y < 0)
-        {
-            movePlayer(inputTypes.Controller, -transform.right);
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            {
+                inputType = inputTypes.Keyboard;
 
-        if (Input.GetButtonDown("Jump") && isOnGround)
-        {
-            inputType = inputTypes.Controller;
+                Invoke("limitDrag", jumpHeight / 30);
 
-            Invoke("limitDrag", jumpHeight / 30);
+                rb.velocity += Vector3.up * jumpHeight;
+            }
 
-            rb.velocity += Vector3.up * jumpHeight;
+            if (!controllerInputRight.Equals(Vector2.zero))
+            {
+                inputType = inputTypes.Controller;
+
+                transform.Rotate(0, controllerInputRight.x * joystickRotationSpeed, 0, Space.World);
+            }
+
+            if (controllerInputLeft.x > 0)
+            {
+                movePlayer(inputTypes.Controller, transform.forward);
+            }
+
+            if (controllerInputLeft.x < 0)
+            {
+                movePlayer(inputTypes.Controller, -transform.forward);
+            }
+
+            if (controllerInputLeft.y > 0)
+            {
+                movePlayer(inputTypes.Controller, transform.right);
+            }
+
+            if (controllerInputLeft.y < 0)
+            {
+                movePlayer(inputTypes.Controller, -transform.right);
+            }
+
+            if (Input.GetButtonDown("Jump") && isOnGround)
+            {
+                inputType = inputTypes.Controller;
+
+                Invoke("limitDrag", jumpHeight / 30);
+
+                rb.velocity += Vector3.up * jumpHeight;
+            }
         }
 
         //print(wallFront + " " + wallBack + " " + wallRight + " " + wallLeft + " " + Time.time);
         print("<b>[INPUT TYPE]:</b> " + inputType);
     }
 
-    private void limitDrag()
-    {
-        rb.drag = -3;
-    }
+    private void limitDrag() { rb.drag = -3; }
+
+    public void pauseMovement(bool value) { isMovementPaused = value; }
 
     private void movePlayer(inputTypes input, Vector3 dir)
     {
@@ -156,9 +143,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.Equals(gc.gameObject) && ((gc.groundObject != null && !other.gameObject.Equals(gc.groundObject)) || gc.groundObject == null))
+        if (!isOnGround && !other.gameObject.Equals(gc.gameObject) && ((gc.groundObject != null && !other.gameObject.Equals(gc.groundObject)) || gc.groundObject == null))
         {
             isOnWall = true;
+            limitDrag();
         }
     }
 }
