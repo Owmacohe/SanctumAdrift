@@ -226,8 +226,8 @@ namespace PixelCrushers.DialogueSystem
         {
             if (usable == null || elements == null) return;
             Tools.SetGameObjectActive(elements.mainGraphic, true);
-            elements.nameText.SetActive(true);
-            elements.useMessageText.SetActive(true);
+            elements.nameText.enabled = true;
+            elements.useMessageText.enabled = true;
             elements.nameText.text = usable.GetName();
             elements.useMessageText.text = GetUseMessage();
             Tools.SetGameObjectActive(elements.reticleInRange, IsUsableInRange());
@@ -255,8 +255,8 @@ namespace PixelCrushers.DialogueSystem
         private void DeactivateControls()
         {
             if (elements == null) return;
-            elements.nameText.SetActive(false);
-            elements.useMessageText.SetActive(false);
+            elements.nameText.enabled = false;
+            elements.useMessageText.enabled = false;
             Tools.SetGameObjectActive(elements.reticleInRange, false);
             Tools.SetGameObjectActive(elements.reticleOutOfRange, false);
             Tools.SetGameObjectActive(elements.mainGraphic, false);

@@ -3,6 +3,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -31,13 +32,13 @@ namespace PixelCrushers.DialogueSystem
         /// The text for the name of the current selection.
         /// </summary>
         [Tooltip("Text element for name of current selection.")]
-        public UITextField nameText = null;
+        public TMP_Text nameText = null;
 
         /// <summary>
         /// The text for the use message (e.g., "Press spacebar to use").
         /// </summary>
         [Tooltip("Text element for use message (e.g., 'Press spacebar to use').")]
-        public UITextField useMessageText = null;
+        public TMP_Text useMessageText = null;
 
         [Tooltip("Set text elements to this color when selector is in range to use selection.")]
         public Color inRangeColor = Color.yellow;

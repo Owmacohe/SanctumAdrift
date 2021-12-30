@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1172145994598070829}
   - component: {fileID: 5413854561151395043}
   - component: {fileID: 6660526257466699721}
+  - component: {fileID: 4379453616312428368}
   - component: {fileID: 6660526257466699722}
   - component: {fileID: 9005513114980185058}
   - component: {fileID: -8028168429733435659}
@@ -168,8 +169,8 @@ MonoBehaviour:
     width: 64
     height: 64
   useKey: 101
-  useButton: 
-  defaultUseMessage: (E to interact)
+  useButton: Fire3
+  defaultUseMessage: '    to talk'
   broadcastToChildren: 1
   actorTransform: {fileID: 0}
   tooFarMessage: 
@@ -183,6 +184,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   debug: 0
+--- !u!114 &4379453616312428368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660526257466699727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9481d631e872c45a9f702509a148ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagSpecificElements: []
+  layerSpecificElements: []
 --- !u!114 &6660526257466699722
 MonoBehaviour:
   m_ObjectHideFlags: 0
