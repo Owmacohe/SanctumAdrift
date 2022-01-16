@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //print(Time.time + " " + isOnGround);
+
         if (!lastInputType.Equals(inputType))
         {
             if (inputType.Equals(inputTypes.Keyboard))
