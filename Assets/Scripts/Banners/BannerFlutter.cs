@@ -1,13 +1,3 @@
-/// ----------------------------------------------------------------------
-/// "Flutters" a banner GameObject up and down within a 0 and maximum x-axis rotation
-/// 
-/// @project Sanctum Adrift
-/// @version 1.0
-/// @organization Lightsea Studio
-/// @author Owen Hellum
-/// @date September 2021
-/// ----------------------------------------------------------------------
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +8,8 @@ public class BannerFlutter : MonoBehaviour
     [Tooltip("Length of the banner to flutter")]
     public BannerSizes size;
     [Tooltip("Chance for the banner to change velocity (aka flutter)")]
-    [Range(1, 5)]
-    public int flutterFrequency = 1;
+    [Range(1, 10)]
+    public int flutterFrequency = 5;
 
     private float speed; // Maximum amount of velocity that can be applied
     private float max; // Maximum x-axis rotation that can be applied to the banner
@@ -52,7 +42,7 @@ public class BannerFlutter : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         float speedRange = Random.Range(-speed, speed);
 

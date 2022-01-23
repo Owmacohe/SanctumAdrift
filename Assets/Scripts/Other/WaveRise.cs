@@ -7,9 +7,9 @@ public class WaveRise : MonoBehaviour
     [Range(0.1f, 1)]
     public float maxRise = 0.5f;
     [Range(1, 20)]
-    public float waveFrequency = 10f;
-    [Range(0.2f, 1)]
-    public float waveSpeed = 0.4f;
+    public float waveFrequency = 15;
+    [Range(0.1f, 2)]
+    public float waveSpeed = 0.8f;
 
     private float startRise;
     private bool isWaving, hasHitTop;
@@ -27,7 +27,7 @@ public class WaveRise : MonoBehaviour
         startRise = transform.localPosition.y;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isWaving && Random.Range(0, 100) <= waveFrequency)
         {

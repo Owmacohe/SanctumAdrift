@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float movementSpeed = 1.5f;
+    public float movementSpeed = 10;
     public float mouseRotationSpeed = 2;
-    public float joystickRotationSpeed = 0.4f;
+    public float joystickRotationSpeed = 0.7f;
     public float jumpHeight = 5;
+    public Vector2 cameraRotationBounds = new Vector2(5, 25);
 
     private enum inputTypes { None, Keyboard, Controller }
     private inputTypes inputType = inputTypes.None;
@@ -21,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private GroundChecker gc;
     private GameObject keyImage, buttonImage, buttonX, buttonSquare;
-    private bool isOnGround, isOnWall, isMovementPaused;
+    private bool isOnGround, lastIsOnGround, isOnWall, isJumping, isMovementPaused;
+    private GameObject playerCamera;
+    private float lastCameraRotation;
 
     private void Start()
     {
@@ -42,12 +45,64 @@ public class PlayerMovement : MonoBehaviour
         buttonX = buttonImage.transform.GetChild(0).gameObject;
         buttonSquare = buttonImage.transform.GetChild(1).gameObject;
         buttonImage.SetActive(false);
+
+        playerCamera = Camera.main.gameObject;
     }
 
     private void Update()
     {
-        //print(Time.time + " " + isOnGround);
+        float cameraRotation = playerCamera.transform.localRotation.eulerAngles.x;
 
+        if (lastCameraRotation != cameraRotation)
+        {
+            if (cameraRotation <= cameraRotationBounds.x)
+            {
+                playerCamera.transform.localRotation = Quaternion.Euler(Vector3.right * cameraRotationBounds.x);
+            }
+            else if (cameraRotation >= cameraRotationBounds.y)
+            {
+                playerCamera.transform.localRotation = Quaternion.Euler(Vector3.right * cameraRotationBounds.y);
+            }
+            else if (cameraRotation <= (cameraRotationBounds.x + 1) || cameraRotation >= (cameraRotationBounds.y - 1))
+            {
+                //mouseRotationSpeed = 0.1f;
+            }
+            else
+            {
+                //mouseRotationSpeed = 2;
+            }
+
+            lastCameraRotation = cameraRotation;
+        }
+
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 controllerInputRight = new Vector2(Input.GetAxis("VerticalRight"), Input.GetAxis("HorizontalRight"));
+
+        if (!mouseInput.Equals(Vector2.zero))
+        {
+            inputType = inputTypes.Keyboard;
+
+            if (!isMovementPaused)
+            {
+                transform.Rotate(0, mouseInput.x * mouseRotationSpeed, 0, Space.World);
+
+                //playerCamera.transform.Rotate(mouseInput.y * -mouseRotationSpeed, 0, 0, Space.Self);
+            }
+        }
+
+        if (!controllerInputRight.Equals(Vector2.zero))
+        {
+            inputType = inputTypes.Controller;
+
+            if (!isMovementPaused)
+            {
+                transform.Rotate(0, controllerInputRight.x * joystickRotationSpeed, 0, Space.World);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
         if (!lastInputType.Equals(inputType))
         {
             if (inputType.Equals(inputTypes.Keyboard))
@@ -101,21 +156,17 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 3;
         }
 
-        //transform.rotation = Quaternion.Euler(Vector3.up * transform.localRotation.eulerAngles.y);
-
-        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        Vector2 controllerInputRight = new Vector2(Input.GetAxis("VerticalRight"), Input.GetAxis("HorizontalRight"));
-        Vector2 controllerInputLeft = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-
-        if (!mouseInput.Equals(Vector2.zero))
+        if (lastIsOnGround != isOnGround)
         {
-            inputType = inputTypes.Keyboard;
-
-            if (!isMovementPaused)
+            if (isOnGround)
             {
-                transform.Rotate(0, mouseInput.x * mouseRotationSpeed, 0, Space.World);
+                isJumping = false;
             }
+
+            lastIsOnGround = isOnGround;
         }
+
+        Vector2 controllerInputLeft = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -137,25 +188,17 @@ public class PlayerMovement : MonoBehaviour
             movePlayer(inputTypes.Keyboard, -transform.right);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if (Input.GetKey(KeyCode.Space) && isOnGround && !isJumping)
         {
             inputType = inputTypes.Keyboard;
+
+            isJumping = true;
 
             if (!isMovementPaused)
             {
                 Invoke("limitDrag", jumpHeight / 30);
 
                 rb.velocity += Vector3.up * jumpHeight;
-            }
-        }
-
-        if (!controllerInputRight.Equals(Vector2.zero))
-        {
-            inputType = inputTypes.Controller;
-
-            if (!isMovementPaused)
-            {
-                transform.Rotate(0, controllerInputRight.x * joystickRotationSpeed, 0, Space.World);
             }
         }
 
@@ -179,9 +222,11 @@ public class PlayerMovement : MonoBehaviour
             movePlayer(inputTypes.Controller, -transform.right);
         }
 
-        if (Input.GetButtonDown("Jump") && isOnGround)
+        if (Input.GetButton("Jump") && isOnGround && !isJumping)
         {
             inputType = inputTypes.Controller;
+
+            isJumping = true;
 
             if (!isMovementPaused)
             {
@@ -191,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //print(wallFront + " " + wallBack + " " + wallRight + " " + wallLeft + " " + Time.time);
+        //print(Time.time + " " + isOnGround);
         print("<b>[INPUT TYPE]:</b> " + inputType);
     }
 

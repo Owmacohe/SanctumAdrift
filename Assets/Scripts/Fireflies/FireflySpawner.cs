@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class FireflySpawner : MonoBehaviour
 {
+    [Range(0.1f, 100)]
+    public float spawnFrequency = 50;
+
     private BoxCollider box;
     private float boxVolume;
+    private Vector3 halfBoxSize;
 
     private void Start()
     {
         box = GetComponent<BoxCollider>();
         boxVolume = box.bounds.size.x * box.bounds.size.y * box.bounds.size.z;
+        halfBoxSize = box.bounds.size / 2;
     }
 
     private void Update()
     {
-        Vector3 halfBoxSize = box.bounds.size / 2;
-
-        GameObject firefly = Instantiate(Resources.Load<GameObject>("Spawnables/Firefly"), gameObject.transform);
-        firefly.GetComponent<FireflyFlutter>().halfSpawnerBoxSize = halfBoxSize;
-
-        firefly.transform.localPosition = new Vector3(
-            Random.Range(-halfBoxSize.x, halfBoxSize.x),
-            Random.Range(-halfBoxSize.y, halfBoxSize.y),
-            Random.Range(-halfBoxSize.z, halfBoxSize.z)
-        );
+        if (Random.Range(0, 100) <= spawnFrequency)
+        {
+            GameObject firefly = Instantiate(Resources.Load<GameObject>("Spawnables/Firefly"), gameObject.transform);
+            firefly.GetComponent<FireflyFlutter>().halfSpawnerBoxSize = halfBoxSize;
+        }
     }
 }

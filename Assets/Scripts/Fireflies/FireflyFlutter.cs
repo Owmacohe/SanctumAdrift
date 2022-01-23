@@ -6,8 +6,8 @@ public class FireflyFlutter : MonoBehaviour
 {
     [Range(1, 5)]
     public int lightChangeSpeed = 2;
-    [Range(0.1f, 2)]
-    public float flutterFrequency = 2;
+    [Range(0.1f, 100)]
+    public float flutterFrequency = 50;
     [Range(0.1f, 1)]
     public float flutterSpeed = 0.5f;
 
@@ -33,12 +33,18 @@ public class FireflyFlutter : MonoBehaviour
         complimentaryColour.g = 1 - defaultColour.g;
         complimentaryColour.b = 1 - defaultColour.b;
 
-        StartCoroutine(winkIn());
+        //StartCoroutine(winkIn());
 
-        moveRandom();
+        print(halfSpawnerBoxSize);
+
+        transform.localPosition = new Vector3(
+            Random.Range(-halfSpawnerBoxSize.x, halfSpawnerBoxSize.x),
+            Random.Range(-halfSpawnerBoxSize.y, halfSpawnerBoxSize.y),
+            Random.Range(-halfSpawnerBoxSize.z, halfSpawnerBoxSize.z)
+        );
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Random.Range(0, 100) <= flutterFrequency)
         {
@@ -51,7 +57,8 @@ public class FireflyFlutter : MonoBehaviour
             (transform.localPosition.z < -halfSpawnerBoxSize.z || transform.localPosition.z > halfSpawnerBoxSize.z)
         )
         {
-            StartCoroutine(winkOut());
+            //StartCoroutine(winkOut());
+            Destroy(gameObject);
         }
     }
 

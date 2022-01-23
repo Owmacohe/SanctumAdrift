@@ -1,13 +1,3 @@
-/// ----------------------------------------------------------------------
-/// Creates random sanctus characters on banners
-/// 
-/// @project Sanctum Adrift
-/// @version 1.0
-/// @organization Lightsea Studio
-/// @author Owen Hellum
-/// @date September 2021
-/// ----------------------------------------------------------------------
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

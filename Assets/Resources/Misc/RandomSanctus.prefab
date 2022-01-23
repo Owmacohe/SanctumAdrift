@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06917e7ffed5fb4f847fdb543311a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerSize: 0
+  size: 1
