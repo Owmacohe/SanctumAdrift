@@ -5,21 +5,20 @@ using UnityEngine;
 public class FireflyFlutter : MonoBehaviour
 {
     [Range(1, 5)]
-    public int lightChangeSpeed = 2;
+    [SerializeField] int lightChangeSpeed = 2;
     [Range(0.1f, 100)]
-    public float flutterFrequency = 50;
+    [SerializeField] float flutterFrequency = 50;
     [Range(0.1f, 1)]
-    public float flutterSpeed = 0.5f;
+    [SerializeField] float flutterSpeed = 0.5f;
 
-    [HideInInspector]
-    public Vector3 halfSpawnerBoxSize;
-    private Color defaultColour, complimentaryColour;
-    private Light fireflyGlow;
-    private Rigidbody rb;
-    private bool isWinkingOut;
-    private float incrementTimes;
+    [HideInInspector] public Vector3 halfSpawnerBoxSize;
+    Color defaultColour, complimentaryColour;
+    Light fireflyGlow;
+    Rigidbody rb;
+    bool isWinkingOut;
+    float incrementTimes;
 
-    private void Start()
+    void Start()
     {
         fireflyGlow = GetComponent<Light>();
         rb = GetComponent<Rigidbody>();
@@ -35,8 +34,6 @@ public class FireflyFlutter : MonoBehaviour
 
         //StartCoroutine(winkIn());
 
-        print(halfSpawnerBoxSize);
-
         transform.localPosition = new Vector3(
             Random.Range(-halfSpawnerBoxSize.x, halfSpawnerBoxSize.x),
             Random.Range(-halfSpawnerBoxSize.y, halfSpawnerBoxSize.y),
@@ -44,11 +41,11 @@ public class FireflyFlutter : MonoBehaviour
         );
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (Random.Range(0, 100) <= flutterFrequency)
         {
-            moveRandom();
+            MoveRandom();
         }
 
         if (
@@ -62,13 +59,13 @@ public class FireflyFlutter : MonoBehaviour
         }
     }
 
-    private void moveRandom()
+    void MoveRandom()
     {
-        rb.velocity = getRandomVector3(flutterSpeed);
-        rb.rotation = Quaternion.Euler(getRandomVector3(360));
+        rb.velocity = GetRandomVector3(flutterSpeed);
+        rb.rotation = Quaternion.Euler(GetRandomVector3(360));
     }
 
-    private Vector3 getRandomVector3(float max)
+    Vector3 GetRandomVector3(float max)
     {
         return new Vector3(
             Random.Range(-max, max),
@@ -77,7 +74,7 @@ public class FireflyFlutter : MonoBehaviour
         );
     }
 
-    private IEnumerator winkIn()
+    IEnumerator WinkIn()
     {
         float glowInterval = fireflyGlow.intensity / 100;
         fireflyGlow.intensity = 0;
@@ -89,10 +86,10 @@ public class FireflyFlutter : MonoBehaviour
             yield return new WaitForSeconds(0.01f / lightChangeSpeed);
         }
 
-        StartCoroutine(changeLightColour(defaultColour, complimentaryColour));
+        StartCoroutine(ChangeLightColour(defaultColour, complimentaryColour));
     }
 
-    public IEnumerator winkOut()
+    public IEnumerator WinkOut()
     {
         isWinkingOut = true;
 
@@ -108,7 +105,7 @@ public class FireflyFlutter : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator changeLightColour(Color startColour, Color endColour)
+    IEnumerator ChangeLightColour(Color startColour, Color endColour)
     {
         if (!isWinkingOut)
         {
@@ -159,7 +156,7 @@ public class FireflyFlutter : MonoBehaviour
                 yield return new WaitForSeconds(0.01f / lightChangeSpeed);
             }
 
-            StartCoroutine(changeLightColour(endColour, startColour));
+            StartCoroutine(ChangeLightColour(endColour, startColour));
         }
     }
 }

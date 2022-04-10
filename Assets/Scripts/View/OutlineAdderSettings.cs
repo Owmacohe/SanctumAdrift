@@ -1,13 +1,3 @@
-/// ----------------------------------------------------------------------
-/// Adds outlines to all eligible GameObjects in the scene, with whitelist and blacklist options
-/// 
-/// @project Sanctum Adrift
-/// @version 1.0
-/// @organization Lightsea Studio
-/// @author Owen Hellum
-/// @date September 2021
-/// ----------------------------------------------------------------------
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,11 +5,11 @@ using UnityEngine;
 public class OutlineAdderSettings : MonoBehaviour
 {
     [Tooltip("The only GameObjects to have an outline applied to them")]
-    public GameObject[] whitelist;
+    [SerializeField] GameObject[] whitelist;
     [Tooltip("The only GameObjects to *not* have an outline applied to them")]
-    public GameObject[] blacklist;
+    [SerializeField] GameObject[] blacklist;
 
-    private void Start()
+    void Start()
     {
         MeshFilter[] allMeshes = FindObjectsOfType<MeshFilter>(); // Getting the array of all the MeshFilters in the scene
 
@@ -32,7 +22,7 @@ public class OutlineAdderSettings : MonoBehaviour
                 {
                     if (allMeshes[i].gameObject.Equals(whitelist[j]))
                     {
-                        addOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's on the whitelist
+                        AddOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's on the whitelist
                     }
                 }
             }
@@ -52,22 +42,18 @@ public class OutlineAdderSettings : MonoBehaviour
 
                 if (!isOnList)
                 {
-                    addOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's not on the blacklist
+                    AddOutline(allMeshes[i].gameObject); // Adding an outline to the GameObject if it's not on the blacklist
                 }
             }
             // ...then neither
             else
             {
-                addOutline(allMeshes[i].gameObject); // Adding an outline to each GameObject with a MeshFilter
+                AddOutline(allMeshes[i].gameObject); // Adding an outline to each GameObject with a MeshFilter
             }
         }
     }
-
-    /// <summary>
-    /// Adds an outline to the the given GameObject
-    /// </summary>
-    /// <param name="givenGameObject">GameObject to be given an outline</param>
-    private void addOutline(GameObject givenGameObject)
+    
+    void AddOutline(GameObject givenGameObject)
     {
         MeshRenderer gameObjectMeshRenderer = givenGameObject.GetComponent<MeshRenderer>();
         Shader gameObjectShader = Resources.Load<Shader>("OutlineMaterial");

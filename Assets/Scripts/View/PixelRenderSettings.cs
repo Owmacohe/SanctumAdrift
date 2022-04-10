@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class PixelRenderSettings : MonoBehaviour
 {
-    public enum PixelationTypes { None, Medium, Large, Huge, Enormous };
+    enum PixelationTypes { None, Medium, Large, Huge, Enormous };
     [Tooltip("Amount of pixelation to be applied to the camera resolution")]
-    public PixelationTypes pixelation = PixelationTypes.Large;
+    [SerializeField] PixelationTypes pixelation = PixelationTypes.Large;
 
-    private void Start()
+    void Start()
     {
         int width = 1920;
         int height = 1080;

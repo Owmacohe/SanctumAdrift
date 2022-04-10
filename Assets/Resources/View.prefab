@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6037941383766726327}
   - component: {fileID: 6037941383766726280}
   - component: {fileID: 6037941383766726281}
+  - component: {fileID: 5070980172311081038}
   m_Layer: 0
   m_Name: Directional Camera
   m_TagString: MainCamera
@@ -83,6 +84,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6037941383766726282}
   m_Enabled: 1
+--- !u!114 &5070980172311081038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037941383766726282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f622117bc25b31844981e24e6419e976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6037941384247903465
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42aa399df37f6314299a0d1c69e708fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pixelation: 2
+  pixelation: 1
 --- !u!1 &6639036273105887900
 GameObject:
   m_ObjectHideFlags: 0

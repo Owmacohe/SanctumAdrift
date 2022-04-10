@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class RandomBannerSanctus : MonoBehaviour
 {
-    public enum BannerSizes { Small, Medium, Large, Huge };
+    enum BannerSizes { Small, Medium, Large, Huge };
     [Tooltip("Length of the banner to flutter")]
-    public BannerSizes size;
+    [SerializeField] BannerSizes size;
 
-    private void Start()
+    float letterScale, startOffset, defaultOffset;
+
+    void Start()
     {
         string text = "";
         string[] smallText = { "abcd", "efgh", "ijkl", "mnop", "qrst", "uvwx", "yzab" };
@@ -18,30 +20,37 @@ public class RandomBannerSanctus : MonoBehaviour
         switch (size)
         {
             case BannerSizes.Small:
-                text = getRandomFromArray(smallText);
+                text = GetRandomFromArray(smallText);
+                letterScale = 0.13f;
+                startOffset = -0.25f;
+                defaultOffset = -0.35f;
                 break;
             case BannerSizes.Medium:
-                text = getRandomFromArray(mediumText);
+                text = GetRandomFromArray(mediumText);
+                letterScale = 0.1f;
+                startOffset = -0.12f;
+                defaultOffset = -0.18f;
                 break;
         }
 
+        float cumulativeOffset = 0;
+
         for (int i = 0; i < text.Length; i++)
         {
-            float offset = -0.35f;
+            float offset = defaultOffset;
 
             // Making the first offset a little smaller so that it aligns with the banner
             if (i == 0)
             {
-                offset = -0.25f;
+                offset = startOffset;
             }
+
+            cumulativeOffset += offset;
 
             // Creating and positioning the new letter
             GameObject newLetter = Instantiate(Resources.Load<GameObject>("Misc/SanctusLetter"), transform);
-            newLetter.transform.position = new Vector3(
-                transform.position.x,
-                transform.position.y + (offset * (i + 1)),
-                transform.position.z
-            );
+            newLetter.transform.localPosition = Vector3.up * cumulativeOffset;
+            newLetter.transform.localScale = Vector3.one * letterScale;
 
             int asciiCode = text[i].ToString().ToUpper().ToCharArray()[0] - 64; // Getting the letter's ASCII code
 
@@ -65,7 +74,7 @@ public class RandomBannerSanctus : MonoBehaviour
         }
     }
 
-    private string getRandomFromArray(string[] arr)
+    string GetRandomFromArray(string[] arr)
     {
         return arr[Random.Range(0, arr.Length - 1)];
     }

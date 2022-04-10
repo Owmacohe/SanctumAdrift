@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class BannerFlutter : MonoBehaviour
 {
-    public enum BannerSizes { Small, Medium, Large, Huge };
+    enum BannerSizes { Small, Medium, Large, Huge };
     [Tooltip("Length of the banner to flutter")]
-    public BannerSizes size;
+    [SerializeField] BannerSizes size;
     [Tooltip("Chance for the banner to change velocity (aka flutter)")]
     [Range(1, 10)]
-    public int flutterFrequency = 5;
+    [SerializeField] int flutterFrequency = 5;
 
-    private float speed; // Maximum amount of velocity that can be applied
-    private float max; // Maximum x-axis rotation that can be applied to the banner
-    private Transform bannerTransform; // Transform component of the banner
-    private Rigidbody bannerRB; // RigidBody component of the banner
+    float speed; // Maximum amount of velocity that can be applied
+    float max; // Maximum x-axis rotation that can be applied to the banner
+    Transform bannerTransform; // Transform component of the banner
+    Rigidbody bannerRB; // RigidBody component of the banner
 
-    private void Start()
+    void Start()
     {
         bannerTransform = GetComponent<Transform>();
         bannerRB = GetComponent<Rigidbody>();
@@ -42,7 +42,7 @@ public class BannerFlutter : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         float speedRange = Random.Range(-speed, speed);
 

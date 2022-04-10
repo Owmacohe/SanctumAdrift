@@ -5,17 +5,17 @@ using UnityEngine;
 public class WaveRise : MonoBehaviour
 {
     [Range(0.1f, 1)]
-    public float maxRise = 0.5f;
+    [SerializeField] float maxRise = 0.5f;
     [Range(1, 20)]
-    public float waveFrequency = 15;
+    [SerializeField] float waveFrequency = 15;
     [Range(0.1f, 2)]
-    public float waveSpeed = 0.8f;
+    [SerializeField] float waveSpeed = 0.8f;
 
-    private float startRise;
-    private bool isWaving, hasHitTop;
-    private Rigidbody rb;
+    float startRise;
+    bool isWaving, hasHitTop;
+    Rigidbody rb;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -27,7 +27,7 @@ public class WaveRise : MonoBehaviour
         startRise = transform.localPosition.y;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!isWaving && Random.Range(0, 100) <= waveFrequency)
         {

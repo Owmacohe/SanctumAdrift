@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2976204796610642868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2976204796610642869}
+  - component: {fileID: 2976204796610642858}
+  - component: {fileID: 4538984323799035457}
+  m_Layer: 0
+  m_Name: CandleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2976204796610642869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976204796610642868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2976204796610642858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976204796610642868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4558397deef96954fb30b9e6af759ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiClusterNum: 1
+  randomClusterNum: 1
+  candleClusterList:
+  - {fileID: 7004548796026681172, guid: ae6000f30f4c4ef4f81bb7bddd8a204a, type: 3}
+  - {fileID: 7489639186469583253, guid: 4bf060e8c89527143aebaae1aa58e956, type: 3}
+  - {fileID: 2291618064826249899, guid: 6595c9871b3bb2f42b537c09f52443f8, type: 3}
+  - {fileID: 5981791466225500141, guid: aecc186c4d01a9241805ea6c0368b196, type: 3}
+  - {fileID: 1638738365684504447, guid: 63ce05dcbdea87d4aa29e945b220f009, type: 3}
+--- !u!65 &4538984323799035457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976204796610642868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}

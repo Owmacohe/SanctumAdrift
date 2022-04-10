@@ -5,20 +5,20 @@ using UnityEngine;
 public class FireflySpawner : MonoBehaviour
 {
     [Range(0.1f, 100)]
-    public float spawnFrequency = 50;
+    [SerializeField] float spawnFrequency = 50;
 
-    private BoxCollider box;
-    private float boxVolume;
-    private Vector3 halfBoxSize;
+    BoxCollider box;
+    float boxVolume;
+    Vector3 halfBoxSize;
 
-    private void Start()
+    void Start()
     {
         box = GetComponent<BoxCollider>();
         boxVolume = box.bounds.size.x * box.bounds.size.y * box.bounds.size.z;
         halfBoxSize = box.bounds.size / 2;
     }
 
-    private void Update()
+    void Update()
     {
         if (Random.Range(0, 100) <= spawnFrequency)
         {
