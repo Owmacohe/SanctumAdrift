@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NPCGenerator : MonoBehaviour
+public class SpiritManager : MonoBehaviour
 {
+    Player player;
     List<NPC> NPCList;
 
     void Start()
     {
+        player = new Player("Player Name", Spirit.SpiritClasses.None, Spirit.SpiritTypes.None);
         NPCList = new List<NPC>();
 
         foreach (Spirit.SpiritTypes i in Enum.GetValues(typeof(Spirit.SpiritTypes)))
@@ -35,17 +37,9 @@ public class NPCGenerator : MonoBehaviour
             }
         }
 
-        foreach (NPC j in NPCList)
-        {
-            string temp = "<b>" + j.Name + "</b>, " + j.SpiritClass + " " + j.SpiritType + " spirit";
-
-            foreach (KeyValuePair<Spirit, int> k in j.Opinions)
-            {
-                temp += " | " + k.Key.Name + " = " + k.Value;
-            }
-
-            print(temp);
-        }
+        SaveLoadData temp = GetComponent<SaveLoadData>();
+        temp.SavePlayer(player);
+        temp.SaveNPCs(NPCList);
     }
 
     string GenerateName()

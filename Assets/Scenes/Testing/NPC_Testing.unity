@@ -216,8 +216,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1105726499}
   - component: {fileID: 1105726500}
+  - component: {fileID: 1105726501}
   m_Layer: 0
-  m_Name: NPC Generator
+  m_Name: NPC Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,6 +248,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b68b511127e4206b13db44ecd61316b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1105726501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105726498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21fa136e588971e41887763fcc9ef11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1272350949

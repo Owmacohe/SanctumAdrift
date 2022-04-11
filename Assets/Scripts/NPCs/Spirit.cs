@@ -1,4 +1,6 @@
-﻿public class Spirit
+﻿using UnityEngine;
+
+public class Spirit
 {
     string name;
     
@@ -38,5 +40,10 @@
         this.name = name;
         this.spiritClass = spiritClass;
         this.spiritType = spiritType;
+    }
+
+    public virtual string StringValue()
+    {
+        return name + "\n" + spiritClass + "\n" + spiritType;
     }
 }

@@ -2,9 +2,9 @@
 
 public class Player : Spirit
 {
-    List<KeyValuePair<Spirit, int>> questlines;
+    Dictionary<Spirit, int> questlines;
 
-    public List<KeyValuePair<Spirit, int>> Questlines
+    public Dictionary<Spirit, int> Questlines
     {
         get { return questlines; }
         set { questlines = value; }
@@ -12,11 +12,26 @@ public class Player : Spirit
     
     public Player() : base()
     {
-        questlines = new List<KeyValuePair<Spirit, int>>();
+        questlines = new Dictionary<Spirit, int>();
     }
     
     public Player(string name, SpiritClasses spiritClass, SpiritTypes spiritType) : base(name, spiritClass, spiritType)
     {
-        questlines = new List<KeyValuePair<Spirit, int>>();
+        questlines = new Dictionary<Spirit, int>();
+    }
+    
+    public override string StringValue()
+    {
+        string temp = base.StringValue();
+        
+        if (questlines.Count != 0)
+        {
+            foreach (KeyValuePair<Spirit, int> i in questlines)
+            {
+                temp += "\n" + i.Key.Name + " " + i.Value;
+            }
+        }
+        
+        return temp;
     }
 }
