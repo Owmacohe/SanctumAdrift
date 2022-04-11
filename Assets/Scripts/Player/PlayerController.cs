@@ -9,22 +9,22 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 7;
     [SerializeField] float jumpHeight = 7;
-    [SerializeField] float rotationSpeed = 0.1f;
-    [SerializeField] Vector2 rotationBoundsY = new Vector2(4, 7);
+    [SerializeField] float rotationSpeed = 0.05f;
+    [SerializeField] Vector2 rotationBoundsY = new Vector2(10, 10);
     
     Vector2 direction;
     
     Rigidbody rb;
-    
+
     Transform cam;
     float startRotationX;
+    Transform viewObject;
     
     bool isGrounded;
     GameObject ground;
     List<GameObject> collidingObjects;
 
     GameObject keyImage, buttonImage, buttonX, buttonSquare;
-    bool isInConversation;
 
     void Start()
     {
@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         
         cam = Camera.main.transform;
         startRotationX = cam.transform.localEulerAngles.x;
+        viewObject = cam.parent;
         
         collidingObjects = new List<GameObject>();
         
@@ -50,15 +51,12 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue input)
     {
-        if (!isInConversation)
-        {
-            direction = speed * input.Get<Vector2>();
-        }
+        direction = speed * input.Get<Vector2>();
     }
 
     void OnJump()
     {
-        if (!isInConversation && isGrounded)
+        if (isGrounded)
         {
             rb.velocity += Vector3.up * jumpHeight;
         }
@@ -66,26 +64,20 @@ public class PlayerController : MonoBehaviour
 
     void OnLookX(InputValue input)
     {
-        if (!isInConversation)
-        {
-            rb.transform.Rotate(Vector3.up, input.Get<float>() * rotationSpeed);
-        }
+        viewObject.transform.Rotate(Vector3.up, input.Get<float>() * rotationSpeed);
     }
     
     void OnLookY(InputValue input)
     {
-        if (!isInConversation)
+        float currentRotationX = cam.transform.localEulerAngles.x;
+        float rotationFactor = Mathf.Pow(1.5f, -Mathf.Abs(startRotationX - currentRotationX));
+
+        if (rotationFactor > 1)
         {
-            float currentRotationX = cam.transform.localEulerAngles.x;
-            float rotationFactor = Mathf.Pow(2, -Mathf.Abs(startRotationX - currentRotationX));
-
-            if (rotationFactor > 1)
-            {
-                rotationFactor = 1;
-            }
-
-            cam.transform.Rotate(Vector3.left, input.Get<float>() * rotationSpeed * rotationFactor);
+            rotationFactor = 1;
         }
+
+        cam.transform.Rotate(Vector3.left, input.Get<float>() * rotationSpeed * rotationFactor);
 
         if (cam.transform.localEulerAngles.x > startRotationX + rotationBoundsY.x)
         {
@@ -119,19 +111,30 @@ public class PlayerController : MonoBehaviour
         buttonX.SetActive(true);
         buttonSquare.SetActive(false);
     }
-    
-    public void Conversation(bool convo) { isInConversation = convo; }
 
     void FixedUpdate()
     {
-        if (!direction.Equals(Vector2.zero) && (collidingObjects.Count == 0 || collidingObjects.Contains(ground)))
+        if (!direction.Equals(Vector2.zero))
         {
-            rb.velocity = transform.TransformVector(new Vector3(direction.x, rb.velocity.y, direction.y));
+            Vector3 temp = new Vector3(direction.x, rb.velocity.y, direction.y);
+            
+            if (collidingObjects.Count == 0 || collidingObjects.Contains(ground))
+            {
+                rb.velocity = viewObject.TransformVector(temp);
+            }
+
+            Vector3 targetDirection = viewObject.TransformPoint(temp) - transform.position;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, 3 * rotationSpeed, 0);
+            
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.eulerAngles.y);
         }
     }
 
     void Update()
     {
+        viewObject.position = transform.position;
+        
         RaycastHit hit;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f);
 
