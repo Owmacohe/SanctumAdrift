@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class NPC : Spirit
 {
-    Dictionary<Spirit, int> opinions;
+    Dictionary<string, int> opinions;
 
-    public Dictionary<Spirit, int> Opinions
+    public Dictionary<string, int> Opinions
     {
-        get { return opinions; }
-        set { opinions = value; }
+        get => opinions;
+        set => opinions = value;
     }
     
     public NPC() : base()
     {
-        opinions = new Dictionary<Spirit, int>();
+        opinions = new Dictionary<string, int>();
     }
     
     public NPC(string name, SpiritClasses spiritClass, SpiritTypes spiritType) : base(name, spiritClass, spiritType)
     {
-        opinions = new Dictionary<Spirit, int>();
+        opinions = new Dictionary<string, int>();
     }
 
     public override string StringValue()
@@ -27,11 +27,9 @@ public class NPC : Spirit
 
         if (opinions.Count != 0)
         {
-            temp += "\n===";
-            
-            foreach (KeyValuePair<Spirit, int> i in opinions)
+            foreach (KeyValuePair<string, int> i in opinions)
             {
-                temp += "\n" + i.Key.Name + " " + i.Value;
+                temp += "\n" + i.Key + " " + i.Value;
             }
         }
 

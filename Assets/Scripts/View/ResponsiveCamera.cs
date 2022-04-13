@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ResponsiveCamera : MonoBehaviour
 {
+    [SerializeField] bool calculateStartDistance = false;
     [SerializeField] float speed = 1;
     [SerializeField] float minDistance = 5;
 
@@ -16,7 +17,15 @@ public class ResponsiveCamera : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        startDistance = (player.position - transform.position).magnitude;
+
+        if (calculateStartDistance)
+        {
+            startDistance = (player.position - transform.position).magnitude;
+        }
+        else
+        {
+            startDistance = 9.8f;
+        }
     }
     
     void FixedUpdate()

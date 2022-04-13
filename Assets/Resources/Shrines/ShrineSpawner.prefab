@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2976204796610642869}
   - component: {fileID: 2976204796610642858}
   m_Layer: 0
-  m_Name: CandleSpawner
+  m_Name: ShrineSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,11 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4558397deef96954fb30b9e6af759ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiNum: 3
-  isRandomMultiNum: 1
+  multiNum: 1
+  isRandomMultiNum: 0
+  isRotationRandom: 0
   prefabList:
-  - {fileID: 7004548796026681172, guid: ae6000f30f4c4ef4f81bb7bddd8a204a, type: 3}
-  - {fileID: 7489639186469583253, guid: 4bf060e8c89527143aebaae1aa58e956, type: 3}
-  - {fileID: 2291618064826249899, guid: 6595c9871b3bb2f42b537c09f52443f8, type: 3}
-  - {fileID: 5981791466225500141, guid: aecc186c4d01a9241805ea6c0368b196, type: 3}
-  - {fileID: 1638738365684504447, guid: 63ce05dcbdea87d4aa29e945b220f009, type: 3}
+  - {fileID: 6288692974899299468, guid: 341fbd74ed129e445af899f75cbc7d65, type: 3}
+  - {fileID: 4391122993018469359, guid: 7ae89c15c00bdc645aaccddd788de6b6, type: 3}
+  - {fileID: 6928535633453256918, guid: 65db303670fac6a4faf0bf277dc982fb, type: 3}
+  - {fileID: 1021877083627791722, guid: 265f07faf98a23245a42ff3455c9dc25, type: 3}

@@ -6,12 +6,38 @@ using Random = UnityEngine.Random;
 
 public class SpiritManager : MonoBehaviour
 {
+    [SerializeField] bool loadPlayerTransformAtStart;
+    
+    SaveLoadData data;
+    
     Player player;
+    Transform playerTransform;
+    Transform cameraTransform;
+    
     List<NPC> NPCList;
 
     void Start()
     {
-        player = new Player("Player Name", Spirit.SpiritClasses.None, Spirit.SpiritTypes.None);
+        data = GetComponent<SaveLoadData>();
+
+        if (loadPlayerTransformAtStart)
+        {
+            player = data.LoadPlayer();
+        }
+        else
+        {
+            player = new Player();
+        }
+
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        cameraTransform = Camera.main.transform.parent;
+        
+        playerTransform.position = player.PlayerPosition;
+        playerTransform.rotation = Quaternion.Euler(player.PlayerRotation);
+        cameraTransform.position = player.CameraPosition;
+        cameraTransform.rotation = Quaternion.Euler(player.CameraRotation);
+        
+        /*
         NPCList = new List<NPC>();
 
         foreach (Spirit.SpiritTypes i in Enum.GetValues(typeof(Spirit.SpiritTypes)))
@@ -36,10 +62,27 @@ public class SpiritManager : MonoBehaviour
                 }
             }
         }
+        
+        data.SaveNPCs(NPCList);
+        */
+    }
 
-        SaveLoadData temp = GetComponent<SaveLoadData>();
-        temp.SavePlayer(player);
-        temp.SaveNPCs(NPCList);
+    void FixedUpdate()
+    {
+        if (Time.time % 2 == 0 && Time.time >= 2)
+        {
+            SavePlayerTransform();
+        }
+    }
+
+    void SavePlayerTransform()
+    {
+        player.SetPlayerPosition(playerTransform.position);
+        player.SetPlayerRotation(playerTransform.rotation.eulerAngles);
+        player.SetCameraPosition(cameraTransform.position);
+        player.SetCameraRotation(cameraTransform.rotation.eulerAngles);
+        
+        data.SavePlayer(player);
     }
 
     string GenerateName()

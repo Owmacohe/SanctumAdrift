@@ -6,8 +6,8 @@ public class Spirit
     
     public string Name
     {
-        get { return name; }
-        set { name = value; }
+        get => name;
+        set => name = value;
     }
     
     public enum SpiritClasses { None, Minor, Median, Major, Magnanimous };
@@ -15,8 +15,8 @@ public class Spirit
     
     public SpiritClasses SpiritClass
     {
-        get { return spiritClass; }
-        set { spiritClass = value; }
+        get => spiritClass;
+        set => spiritClass = value;
     }
     
     public enum SpiritTypes { None, Leaf, Liquor, Paper, Ember, Bone };
@@ -24,13 +24,13 @@ public class Spirit
 
     public SpiritTypes SpiritType
     {
-        get { return spiritType; }
-        set { spiritType = value; }
+        get => spiritType;
+        set => spiritType = value;
     }
 
     public Spirit()
     {
-        name = "";
+        name = "None";
         spiritClass = SpiritClasses.None;
         spiritType = SpiritTypes.None;
     }

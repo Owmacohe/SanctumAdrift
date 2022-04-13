@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6928535634647769302}
   - component: {fileID: 6928535633105982751}
   - component: {fileID: 6928535633105982688}
-  - component: {fileID: 956583275633688026}
+  - component: {fileID: 2774231188927422897}
   m_Layer: 0
   m_Name: Shrines_1_Base
   m_TagString: Untagged
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &956583275633688026
-MeshCollider:
+--- !u!65 &2774231188927422897
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,10 +92,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3909233067320746374, guid: 459c24415b09cfb47b81d05051c4f77e, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.030293934, y: 0.030293934, z: 0.014000001}
+  m_Center: {x: 2.0861625e-10, y: 2.0861624e-10, z: 0.0069999998}
 --- !u!1 &6928535633357199521
 GameObject:
   m_ObjectHideFlags: 0
