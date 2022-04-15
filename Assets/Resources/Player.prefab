@@ -467,4 +467,4 @@ MonoBehaviour:
   speed: 7
   jumpHeight: 7
   rotationSpeed: 0.05
-  rotationBoundsY: {x: 10, y: 10}
+  rotationBoundsY: {x: 15, y: 10}
