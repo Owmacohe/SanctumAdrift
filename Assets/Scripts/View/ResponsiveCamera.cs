@@ -5,38 +5,40 @@ using UnityEngine;
 
 public class ResponsiveCamera : MonoBehaviour
 {
-    [SerializeField] bool calculateStartDistance = false;
-    [SerializeField] float speed = 1;
-    [SerializeField] float minDistance = 5;
+    [SerializeField] float startDistance = 9.8f;
+    [SerializeField] float speed = 0.75f;
+    [SerializeField] float minDistance = 1;
 
     Transform player;
-    float startDistance;
     Vector3 direction;
     bool isHittingPlayer;
-    
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (calculateStartDistance)
-        {
-            startDistance = (player.position - transform.position).magnitude;
-        }
-        else
-        {
-            startDistance = 9.8f;
-        }
     }
     
+    void Update()
+    {
+        isHittingPlayer = CheckHitting();
+    }
+
     void FixedUpdate()
     {
         Vector3 amount = direction.normalized * speed;
-
+        
         if (isHittingPlayer)
         {
             if (direction.magnitude < startDistance)
             {
                 transform.position -= amount;
+                //print("away");
+            }
+            
+            if (!CheckHitting())
+            {
+                transform.position += amount;
+                //print("fix close");
             }
         }
         else
@@ -44,16 +46,17 @@ public class ResponsiveCamera : MonoBehaviour
             if (direction.magnitude > minDistance)
             {
                 transform.position += amount;
+                //print("close");
             }
         }
     }
-
-    void Update()
+    
+    bool CheckHitting()
     {
-        direction = player.position - transform.position;
+        direction = (player.position + Vector3.up) - transform.position;
         RaycastHit hit;
-        Physics.Raycast(transform.position, direction, out hit, direction.magnitude + 1);
-        
-        isHittingPlayer = hit.transform.Equals(player);
+        Physics.Raycast(transform.position, direction, out hit, 2 * direction.magnitude);
+
+        return hit.transform.Equals(player); // TODO: gets too close to some models and throws errors (fixed by growing minDistance)
     }
 }

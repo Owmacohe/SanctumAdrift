@@ -5,8 +5,7 @@ using UnityEngine.Serialization;
 
 public class PrefabSpawner : MonoBehaviour
 {
-    [Range(1, 3)]
-    [SerializeField] int multiNum = 1;
+    [Range(1, 3)] [SerializeField] int multiNum = 1;
     [SerializeField] bool isRandomMultiNum = true;
     [SerializeField] bool isRotationRandom = true;
     [SerializeField] GameObject[] prefabList;

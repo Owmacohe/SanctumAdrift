@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1570658284412560213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570658284412560202}
+  - component: {fileID: 1570658284412560203}
+  m_Layer: 0
+  m_Name: ShrineStackSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1570658284412560202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570658284412560213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1570658284412560203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570658284412560213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef058f4d80288724aa732b326a77671d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stackNum: 1
+  isRandomStackNum: 1
+  isRotationRandom: 0
+  stacks:
+  - {fileID: 6928535633453256918, guid: c6396a1699f68de4fbc6b1e417f85f6f, type: 3}
+  - {fileID: 6928535633453256918, guid: 787242889cad22b438e3c9c4c07d061b, type: 3}
+  - {fileID: 6928535633453256918, guid: b08527c9388dcae4d93390db16098798, type: 3}
+  - {fileID: 6928535633453256918, guid: 9f41dfb5919ade24c8806d28b666f58d, type: 3}

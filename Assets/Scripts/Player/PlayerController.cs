@@ -8,9 +8,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 7;
-    [SerializeField] float jumpHeight = 7;
+    [SerializeField] float jumpHeight = 5;
     [SerializeField] float rotationSpeed = 0.05f;
-    [SerializeField] Vector2 rotationBoundsY = new Vector2(10, 10);
+    [SerializeField] Vector2 rotationBoundsY = new Vector2(15, 10);
     
     Vector2 direction;
     
@@ -128,6 +128,15 @@ public class PlayerController : MonoBehaviour
             
             transform.rotation = Quaternion.LookRotation(newDirection);
             transform.rotation = Quaternion.Euler(Vector3.up * transform.rotation.eulerAngles.y);
+        }
+
+        if (collidingObjects.Count > 0)
+        {
+            rb.drag = 5;
+        }
+        else
+        {
+            rb.drag = 1;
         }
     }
 

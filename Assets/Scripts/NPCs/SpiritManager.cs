@@ -27,10 +27,13 @@ public class SpiritManager : MonoBehaviour
         else
         {
             player = new Player();
+            data.Empty("player_data.txt");
         }
 
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         cameraTransform = Camera.main.transform.parent;
+        
+        // TODO: camera position gets weird when loading zoomed in position
         
         playerTransform.position = player.PlayerPosition;
         playerTransform.rotation = Quaternion.Euler(player.PlayerRotation);
