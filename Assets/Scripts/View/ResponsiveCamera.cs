@@ -9,54 +9,63 @@ public class ResponsiveCamera : MonoBehaviour
     [SerializeField] float speed = 0.75f;
     [SerializeField] float minDistance = 1;
 
-    Transform player;
+    PlayerController player;
+    Transform playerTransform;
     Vector3 direction;
     bool isHittingPlayer;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject temp = GameObject.FindGameObjectWithTag("Player");
+        player = temp.GetComponent<PlayerController>();
+        playerTransform = temp.transform;
     }
     
     void Update()
     {
-        isHittingPlayer = CheckHitting();
+        if (!player.isRotating)
+        {
+            isHittingPlayer = CheckHitting();
+        }
     }
 
     void FixedUpdate()
     {
-        Vector3 amount = direction.normalized * speed;
+        if (!player.isRotating)
+        {
+            Vector3 amount = direction.normalized * speed;
         
-        if (isHittingPlayer)
-        {
-            if (direction.magnitude < startDistance)
+            if (isHittingPlayer)
             {
-                transform.position -= amount;
-                //print("away");
-            }
+                if (direction.magnitude < startDistance)
+                {
+                    transform.position -= amount;
+                    //print("away");
+                }
             
-            if (!CheckHitting())
-            {
-                transform.position += amount;
-                //print("fix close");
+                if (!CheckHitting())
+                {
+                    transform.position += amount;
+                    //print("fix close");
+                }
             }
-        }
-        else
-        {
-            if (direction.magnitude > minDistance)
+            else
             {
-                transform.position += amount;
-                //print("close");
+                if (direction.magnitude > minDistance)
+                {
+                    transform.position += amount;
+                    //print("close");
+                }
             }
         }
     }
     
     bool CheckHitting()
     {
-        direction = (player.position + Vector3.up) - transform.position;
+        direction = (playerTransform.position + Vector3.up) - transform.position;
         RaycastHit hit;
         Physics.Raycast(transform.position, direction, out hit, 2 * direction.magnitude);
 
-        return hit.transform.Equals(player); // TODO: gets too close to some models and throws errors (fixed by growing minDistance)
+        return hit.transform.Equals(playerTransform); // TODO: gets too close to some models and throws errors (fixed by growing minDistance)
     }
 }

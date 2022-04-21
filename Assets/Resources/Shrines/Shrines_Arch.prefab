@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 3158745508998790010}
   - component: {fileID: 879021081043357616}
   - component: {fileID: 2014090509398503333}
-  - component: {fileID: 2014090509398503332}
-  - component: {fileID: 2014090509398503335}
   m_Layer: 0
   m_Name: Shrines_Arch
   m_TagString: Untagged
@@ -102,32 +100,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 0ce465015bba8c84ebfb79255662b130, type: 3}
---- !u!65 &2014090509398503332
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671422000255790693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03, y: 0.05, z: 0.03}
-  m_Center: {x: -0.075, y: 0, z: 0.015}
---- !u!65 &2014090509398503335
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671422000255790693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03, y: 0.05, z: 0.03}
-  m_Center: {x: 0.075, y: 0, z: 0.015}
 --- !u!1001 &461931591516913638
 PrefabInstance:
   m_ObjectHideFlags: 0

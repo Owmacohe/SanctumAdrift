@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     GameObject keyImage, buttonImage, buttonX, buttonSquare;
 
+    [HideInInspector] public bool isRotating;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -136,7 +138,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.drag = 1;
+            rb.drag = 0.1f;
+        }
+
+        if (isRotating)
+        {
+            viewObject.transform.Rotate(Vector3.up, 3 * rotationSpeed);
         }
     }
 
@@ -145,13 +152,15 @@ public class PlayerController : MonoBehaviour
         viewObject.position = transform.position;
         
         RaycastHit hit;
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f);
 
         if (isGrounded)
         {
             ground = hit.transform.gameObject;
         }
     }
+
+    public void SetRotating(bool rot) { isRotating = rot; }
 
     void OnCollisionEnter(Collision collision)
     {
