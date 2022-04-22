@@ -13735,7 +13735,7 @@ console.log(&quot;teste&quot;);
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div created="20220422124701341" list="Worldbuilding Resources Programming" modified="20220422125426791" title="$:/StoryList">
+<div created="20220422144510047" list="Worldbuilding Resources Programming" modified="20220422144510047" title="$:/StoryList">
 <pre></pre>
 </div>
 <div bag="default" created="20210930160353319" list="$:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/plugins/rmnvsl/krystal/buttons/maximize $:/core/ui/Buttons/save" modified="20210930160353335" revision="0" title="$:/tags/EditToolbar" type="text/vnd.tiddlywiki">
@@ -16833,7 +16833,7 @@ console.log(&quot;teste&quot;);
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///Users/ohellum/Documents/GitHub/SanctumAdrift/Wiki/index.html&quot;
+            &quot;text&quot;: &quot;file:///C:/Users/Owen%20Hellum/Documents/GitHub/SanctumAdrift/Wiki/index.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -16853,7 +16853,7 @@ console.log(&quot;teste&quot;);
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/Users/ohellum/Documents/GitHub/SanctumAdrift/Wiki/index.html&quot;
+            &quot;text&quot;: &quot;/C:/Users/Owen%20Hellum/Documents/GitHub/SanctumAdrift/Wiki/index.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -16865,11 +16865,11 @@ console.log(&quot;teste&quot;);
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1440&quot;
+            &quot;text&quot;: &quot;1920&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;900&quot;
+            &quot;text&quot;: &quot;1200&quot;
         },
         &quot;$:/info/browser/language&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/language&quot;,
@@ -20783,7 +20783,7 @@ With a strong central paper foundation, scaffolding and construction platforms r
 <div created="20211119022052540" modified="20211120202938508" tags="[[⛩️ shrines]] [[Paper sanctum]]" title="Paper shrines" type="text/x-markdown">
 <pre>Homes for [[📜 paper spirits]]. Little pagodas with paper roofs. Each small house is tacked on others.</pre>
 </div>
-<div created="20211108223916383" modified="20220422130317533" tags="[[💾 assets]]" title="Programming" type="text/x-markdown">
+<div created="20211108223916383" modified="20220422154442499" tags="[[💾 assets]]" title="Programming" type="text/x-markdown">
 <pre># Player
 
 ## **Physics and movement**
@@ -20873,8 +20873,8 @@ Very similar to the dialogue programming, though with more events and possible r
 - Name
 
 ## **NPC : Character**
+- Questline
 - Opinions of other Characters
-- Base Questline
 
 ## **Spirit : NPC**
 - SpiritClass (enum)
@@ -20884,13 +20884,15 @@ Very similar to the dialogue programming, though with more events and possible r
 
 ## **Player : Character**
 - Settings
+- Cosmetic items
 - Questlines' progress
 - Last position &amp; rotation
-- Cosmetic items
 
 ## **Questline**
+- Name
 - QuestlineType (enum)
 - QuestlineState (enum)
+- QuestlineNodes
 - Current QuestlineNode
 - Base requirements
    - Questlines/Evictions completed
@@ -20899,13 +20901,15 @@ Very similar to the dialogue programming, though with more events and possible r
 - Rewards
 
 ## **QuestlineNode**
+- Key
 - Questline
 - Requirements
    - Questlines/Evictions completed
    - Number of Questlines/Evictions completed
    - Items acquired
    - Conversation choices made
-- Next QuestlineNode(s)
+- Previous QuestlineNode
+- Next QuestlineNode
 
 ---
 

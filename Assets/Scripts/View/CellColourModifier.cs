@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CellColourModifier : MonoBehaviour
 {
     Light mainLight;
     Color lastColour;
+    Dictionary<MeshRenderer, Color> dict;
 
     void Start()
     {
         mainLight = GameObject.FindGameObjectWithTag("MainLight").GetComponent<Light>();
+        dict = new Dictionary<MeshRenderer, Color>();
     }
 
     void FixedUpdate()
@@ -22,42 +25,29 @@ public class CellColourModifier : MonoBehaviour
             foreach (MeshRenderer i in renderers)
             {
                 Material temp = i.material;
-            
+                
                 if (temp.shader.name.Equals("FlexibleCelShader/Cel Outline"))
                 {
-                    //temp.color = mainLight.color;
-
+                    if (!dict.Keys.Contains(i))
+                    {
+                        dict.Add(i, temp.color);
+                    }
+                    
                     float shaderHue, shaderSaturation, shaderValue;
                     float lightHue, lightSaturation, lightValue;
                 
-                    Color.RGBToHSV(temp.color, out shaderHue, out shaderSaturation, out shaderValue);
+                    Color.RGBToHSV(dict[i], out shaderHue, out shaderSaturation, out shaderValue);
                     Color.RGBToHSV(mainLight.color, out lightHue, out lightSaturation, out lightValue);
 
                     temp.color = Color.HSVToRGB(
-                        FloatInterpolate(shaderHue, lightHue),
-                        FloatInterpolate(shaderSaturation, lightSaturation),
-                        FloatInterpolate(shaderValue, lightValue / 100)
+                        shaderHue + lightHue,
+                        shaderSaturation + (lightSaturation / 5f),
+                        shaderValue * lightValue
                     );
                 }
             }
 
             lastColour = mainLight.color;
         }
-    }
-
-    float FloatInterpolate(float f1, float f2)
-    {
-        float temp = f1;
-
-        if (f2 > f1)
-        {
-            temp += f2;
-        }
-        else if (f2 < f1)
-        {
-            temp -= f2;
-        }
-
-        return temp;
     }
 }

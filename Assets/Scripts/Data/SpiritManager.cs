@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpiritManager : MonoBehaviour
+public class SpiritManager : MonoBehaviour  // TODO: a lot of this needs to redone with new class changes
 {
     [SerializeField] bool loadPlayerTransformAtStart;
     

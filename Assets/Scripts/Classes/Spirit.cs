@@ -1,15 +1,5 @@
-﻿using UnityEngine;
-
-public class Spirit
+﻿public class Spirit : NPC
 {
-    string name;
-    
-    public string Name
-    {
-        get => name;
-        set => name = value;
-    }
-    
     public enum SpiritClasses { None, Minor, Median, Major, Magnanimous };
     SpiritClasses spiritClass;
     
@@ -28,22 +18,23 @@ public class Spirit
         set => spiritType = value;
     }
 
-    public Spirit()
+    public Spirit() : base()
     {
-        name = "None";
+        spiritClass = SpiritClasses.None;
+        spiritType = SpiritTypes.None;
+    }
+
+    public Spirit(string name) : base(name)
+    {
         spiritClass = SpiritClasses.None;
         spiritType = SpiritTypes.None;
     }
     
-    public Spirit(string name, SpiritClasses spiritClass, SpiritTypes spiritType)
+    public Spirit(string name, SpiritClasses spiritClass, SpiritTypes spiritType) : base(name)
     {
-        this.name = name;
         this.spiritClass = spiritClass;
         this.spiritType = spiritType;
     }
 
-    public virtual string StringValue()
-    {
-        return name + "\n" + spiritClass + "\n" + spiritType;
-    }
+    public override string BasicAttributes() { return base.BasicAttributes() + "\n" + spiritClass + "\n" + spiritType; }
 }

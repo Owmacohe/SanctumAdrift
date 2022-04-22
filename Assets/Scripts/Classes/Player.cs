@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Spirit
+public class Player : Character
 {
-    Dictionary<string, int> questlines;
+    // TODO: settings
     
-    public Dictionary<string, int> Questlines
+    // TODO: cosmetic items
+    
+    List<Questline> questlines;
+    
+    public List<Questline> Questlines
     {
         get => questlines;
         set => questlines = value;
@@ -41,7 +45,7 @@ public class Player : Spirit
     
     public Player() : base()
     {
-        questlines = new Dictionary<string, int>();
+        questlines = new List<Questline>();
         
         playerPosition = Vector3.zero;
         playerRotation = Vector3.zero;
@@ -50,9 +54,9 @@ public class Player : Spirit
         cameraRotation = Vector3.zero;
     }
     
-    public Player(string name, SpiritClasses spiritClass, SpiritTypes spiritType) : base(name, spiritClass, spiritType)
+    public Player(string name) : base(name)
     {
-        questlines = new Dictionary<string, int>();
+        questlines = new List<Questline>();
         
         playerPosition = Vector3.zero;
         playerRotation = Vector3.zero;
@@ -60,11 +64,11 @@ public class Player : Spirit
         cameraPosition = Vector3.zero;
         cameraRotation = Vector3.zero;
     }
-    
-    public override string StringValue()
-    {
-        string temp = base.StringValue();
 
+    public override string ComplexAttributes()
+    {
+        string temp = "";
+        
         temp += "\n" + playerPosition.x + " " + playerPosition.y + " " + playerPosition.z;
         temp += "\n" + playerRotation.x + " " + playerRotation.y + " " + playerRotation.z;
         
@@ -73,9 +77,9 @@ public class Player : Spirit
         
         if (questlines.Count != 0)
         {
-            foreach (KeyValuePair<string, int> i in questlines)
+            foreach (Questline i in questlines)
             {
-                temp += "\n" + i.Key + " " + i.Value;
+                temp += i.StringValue();
             }
         }
         

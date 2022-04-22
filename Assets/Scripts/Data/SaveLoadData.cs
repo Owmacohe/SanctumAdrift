@@ -3,7 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class SaveLoadData : MonoBehaviour
+public class SaveLoadData : MonoBehaviour // TODO: a lot of this needs to redone with new class changes
 {
     string path;
 
