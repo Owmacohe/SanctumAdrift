@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 # TiddlyWiki backups
 *.html_backup/
+
+# Mac Turds
+*.DS_Store
