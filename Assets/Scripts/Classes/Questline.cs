@@ -27,34 +27,34 @@ public class Questline
         get => questlineState;
         set => questlineState = value;
     }
+    
+    // TODO: requirements
+    
+    // TODO: rewards
 
-    List<QuestlineNode> nodes;
+    List<string> nodes;
 
-    public List<QuestlineNode> Nodes
+    public List<string> Nodes
     {
         get => nodes;
         set => nodes = value;
     }
 
-    QuestlineNode currentNode;
+    string currentNode;
 
-    public QuestlineNode CurrentNode
+    public string CurrentNode
     {
         get => currentNode;
         set => currentNode = value;
     }
-    
-    // TODO: requirements
-    
-    // TODO: rewards
 
     public Questline()
     {
         name = "";
         questlineType = QuestlineTypes.None;
         questlineState = QuestlineStates.Unstarted;
-        nodes = new List<QuestlineNode>();
-        currentNode = null;
+        nodes = new List<string>();
+        currentNode = "";
     }
     
     public Questline(string name)
@@ -62,8 +62,8 @@ public class Questline
         this.name = name;
         questlineType = QuestlineTypes.None;
         questlineState = QuestlineStates.Unstarted;
-        nodes = new List<QuestlineNode>();
-        currentNode = null;
+        nodes = new List<string>();
+        currentNode = "";
     }
     
     public Questline(string name, QuestlineTypes questlineType, QuestlineStates questlineState)
@@ -71,19 +71,19 @@ public class Questline
         this.name = name;
         this.questlineType = questlineType;
         this.questlineState = questlineState;
-        nodes = new List<QuestlineNode>();
-        currentNode = null;
+        nodes = new List<string>();
+        currentNode = "";
     }
 
     public string StringValue()
     {
-        string temp = name + "\n" + questlineType + "\n" + questlineState;
+        string temp = "[QUESTLINE]\n" + name + "\n" + questlineType + "\n" + questlineState;
 
-        for (int i = 0; i < nodes.Count; i++)
+        foreach (string i in nodes)
         {
-            temp += "\nNode" + i;
-
-            if (nodes[i].Equals(currentNode))
+            temp += "\n" + i;
+            
+            if (i.Equals(currentNode))
             {
                 temp += " (current)";
             }

@@ -36,5 +36,5 @@
         this.spiritType = spiritType;
     }
 
-    public override string BasicAttributes() { return base.BasicAttributes() + "\n" + spiritClass + "\n" + spiritType; }
+    public override string ComplexAttributes() { return base.ComplexAttributes() + "\n[SPIRIT]\n" + spiritClass + "\n" + spiritType; }
 }

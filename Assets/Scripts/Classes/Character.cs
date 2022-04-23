@@ -1,4 +1,4 @@
-﻿public abstract class Character
+﻿public class Character
 {
     string name;
 
@@ -11,7 +11,7 @@
     public Character() { name = ""; }
     public Character(string name) { this.name = name; }
     
-    public virtual string BasicAttributes() { return name; }
+    public virtual string BasicAttributes() { return "[CHARACTER]\n" + name; }
     public virtual string ComplexAttributes() { return ""; }
     
     public string StringValue() { return BasicAttributes() + ComplexAttributes(); }

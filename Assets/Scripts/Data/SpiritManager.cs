@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpiritManager : MonoBehaviour  // TODO: a lot of this needs to redone with new class changes
+public class SpiritManager : MonoBehaviour
 {
     [SerializeField] bool loadPlayerTransformAtStart;
     
@@ -14,7 +14,7 @@ public class SpiritManager : MonoBehaviour  // TODO: a lot of this needs to redo
     Transform playerTransform;
     Transform cameraTransform;
     
-    List<NPC> NPCList;
+    List<Spirit> spiritList;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class SpiritManager : MonoBehaviour  // TODO: a lot of this needs to redo
 
         if (loadPlayerTransformAtStart)
         {
-            player = data.LoadPlayer();
+            player = data.LoadPlayer("player_data.txt", 0);
         }
         else
         {
@@ -41,32 +41,32 @@ public class SpiritManager : MonoBehaviour  // TODO: a lot of this needs to redo
         cameraTransform.rotation = Quaternion.Euler(player.CameraRotation);
         
         /*
-        NPCList = new List<NPC>();
+        spiritList = new List<Spirit>();
 
         foreach (Spirit.SpiritTypes i in Enum.GetValues(typeof(Spirit.SpiritTypes)))
         {
             if (!i.Equals(Spirit.SpiritTypes.None))
             {
-                NPCList.Add(new NPC(GenerateName(), Spirit.SpiritClasses.Magnanimous, i));
+                spiritList.Add(new Spirit(GenerateName(), Spirit.SpiritClasses.Magnanimous, i));
 
                 for (int maj = 0; maj < 4; maj++)
                 {
-                    NPCList.Add(new NPC(GenerateName(), Spirit.SpiritClasses.Major, i));
+                    spiritList.Add(new Spirit(GenerateName(), Spirit.SpiritClasses.Major, i));
                 }
 
                 for (int med = 0; med < 10; med++)
                 {
-                    NPCList.Add(new NPC(GenerateName(), Spirit.SpiritClasses.Median, i));
+                    spiritList.Add(new Spirit(GenerateName(), Spirit.SpiritClasses.Median, i));
                 }
 
                 for (int min = 0; min < 5; min++)
                 {
-                    NPCList.Add(new NPC(GenerateName(), Spirit.SpiritClasses.Minor, i));
+                    spiritList.Add(new Spirit(GenerateName(), Spirit.SpiritClasses.Minor, i));
                 }
             }
         }
         
-        data.SaveNPCs(NPCList);
+        data.SaveSpirits(spiritList);
         */
     }
 

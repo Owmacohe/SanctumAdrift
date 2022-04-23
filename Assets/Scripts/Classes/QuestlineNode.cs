@@ -1,8 +1,16 @@
 ﻿public class QuestlineNode
 {
-    Questline questline;
+    string name;
 
-    public Questline Questline
+    public string Name
+    {
+        get => name;
+        set => name = value;
+    }
+    
+    string questline;
+
+    public string Questline
     {
         get => questline;
         set => questline = value;
@@ -10,17 +18,17 @@
     
     // TODO: requirements
 
-    QuestlineNode previous;
+    string previous;
 
-    public QuestlineNode Previous
+    public string Previous
     {
         get => previous;
         set => previous = value;
     }
     
-    QuestlineNode next;
+    string next;
 
-    public QuestlineNode Next
+    public string Next
     {
         get => next;
         set => next = value;
@@ -28,22 +36,35 @@
 
     public QuestlineNode()
     {
+        name = "";
         questline = null;
         previous = null;
         next = null;
     }
     
-    public QuestlineNode(Questline questline)
+    public QuestlineNode(string name)
     {
+        this.name = name;
+        questline = null;
+        previous = null;
+        next = null;
+    }
+    
+    public QuestlineNode(string name, string questline)
+    {
+        this.name = name;
         this.questline = questline;
         previous = null;
         next = null;
     }
     
-    public QuestlineNode(Questline questline, QuestlineNode previous, QuestlineNode next)
+    public QuestlineNode(string name, string questline, string previous, string next)
     {
+        this.name = name;
         this.questline = questline;
         this.previous = previous;
         this.next = next;
     }
+
+    public string StringValue() { return "[NODE]\n" + name + "\n" + questline + "\n" + previous + "\n" + next; }
 }

@@ -2,14 +2,6 @@
 
 public class NPC : Character
 {
-    Dictionary<Character, int> opinions;
-
-    public Dictionary<Character, int> Opinions
-    {
-        get => opinions;
-        set => opinions = value;
-    }
-
     Questline questline;
 
     public Questline Questline
@@ -18,17 +10,34 @@ public class NPC : Character
         set => questline = value;
     }
     
-    public NPC() : base() { opinions = new Dictionary<Character, int>(); }
-    public NPC(string name) : base(name) { opinions = new Dictionary<Character, int>(); }
+    Dictionary<string, int> opinions;
 
-    public override string BasicAttributes() { return "---\n" + base.BasicAttributes() + "\n" + questline.StringValue(); }
+    public Dictionary<string, int> Opinions
+    {
+        get => opinions;
+        set => opinions = value;
+    }
+
+    public NPC() : base()
+    {
+        questline = null;
+        opinions = new Dictionary<string, int>();
+    }
+
+    public NPC(string name) : base(name)
+    {
+        questline = null;
+        opinions = new Dictionary<string, int>();
+    }
+
+    public override string BasicAttributes() { return base.BasicAttributes() + "\n[NPC]\n" + questline.Name; }
     public override string ComplexAttributes()
     {
-        string temp = "\n===\n";
+        string temp = "";
         
         if (opinions.Count != 0)
         {
-            foreach (KeyValuePair<Character, int> i in opinions)
+            foreach (KeyValuePair<string, int> i in opinions)
             {
                 temp += "\n" + i.Key + " " + i.Value;
             }

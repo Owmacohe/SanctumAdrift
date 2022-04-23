@@ -5,16 +5,26 @@ public class Player : Character
 {
     // TODO: settings
     
+    // TODO: inventory
+    
     // TODO: cosmetic items
     
-    List<Questline> questlines;
+    Spirit.SpiritClasses spiritClass;
     
-    public List<Questline> Questlines
+    public Spirit.SpiritClasses SpiritClass
     {
-        get => questlines;
-        set => questlines = value;
+        get => spiritClass;
+        set => spiritClass = value;
     }
     
+    Spirit.SpiritTypes spiritType;
+
+    public Spirit.SpiritTypes SpiritType
+    {
+        get => spiritType;
+        set => spiritType = value;
+    }
+
     Vector3 playerPosition;
     public Vector3 PlayerPosition
     {
@@ -43,28 +53,57 @@ public class Player : Character
     }
     public void SetCameraRotation(Vector3 value) { cameraRotation = value; }
     
+    List<string> questlines;
+    
+    public List<string> Questlines
+    {
+        get => questlines;
+        set => questlines = value;
+    }
+    
     public Player() : base()
     {
-        questlines = new List<Questline>();
+        spiritClass = Spirit.SpiritClasses.None;
+        spiritType = Spirit.SpiritTypes.None;
         
         playerPosition = Vector3.zero;
         playerRotation = Vector3.zero;
         
         cameraPosition = Vector3.zero;
         cameraRotation = Vector3.zero;
+        
+        questlines = new List<string>();
     }
     
     public Player(string name) : base(name)
     {
-        questlines = new List<Questline>();
+        spiritClass = Spirit.SpiritClasses.None;
+        spiritType = Spirit.SpiritTypes.None;
         
         playerPosition = Vector3.zero;
         playerRotation = Vector3.zero;
         
         cameraPosition = Vector3.zero;
         cameraRotation = Vector3.zero;
+        
+        questlines = new List<string>();
     }
-
+    
+    public Player(string name, Spirit.SpiritClasses spiritClass, Spirit.SpiritTypes spiritType) : base(name)
+    {
+        this.spiritClass = spiritClass;
+        this.spiritType = spiritType;
+        
+        playerPosition = Vector3.zero;
+        playerRotation = Vector3.zero;
+        
+        cameraPosition = Vector3.zero;
+        cameraRotation = Vector3.zero;
+        
+        questlines = new List<string>();
+    }
+    
+    public override string BasicAttributes() { return base.BasicAttributes() + "\n[PLAYER]\n" + spiritClass + "\n" + spiritType; }
     public override string ComplexAttributes()
     {
         string temp = "";
@@ -77,9 +116,9 @@ public class Player : Character
         
         if (questlines.Count != 0)
         {
-            foreach (Questline i in questlines)
+            foreach (string i in questlines)
             {
-                temp += i.StringValue();
+                temp += "\n" + i;
             }
         }
         
