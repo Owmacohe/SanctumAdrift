@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResponsiveCamera : MonoBehaviour
 {
-    [SerializeField] float startDistance = 9.8f;
+    [SerializeField] float startDistance = 3;
     [SerializeField] float speed = 0.75f;
     [SerializeField] float minDistance = 1;
 

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 7;
     [SerializeField] float jumpHeight = 5;
     [SerializeField] float rotationSpeed = 0.05f;
-    [SerializeField] Vector2 rotationBoundsY = new Vector2(15, 10);
+    [SerializeField] Vector2 rotationBoundsY = new Vector2(360, 30);
     
     Vector2 direction;
     
@@ -82,15 +82,15 @@ public class PlayerController : MonoBehaviour
 
         cam.transform.Rotate(Vector3.left, input.Get<float>() * rotationSpeed * rotationFactor);
 
-        if (cam.transform.localEulerAngles.x > startRotationX + rotationBoundsY.x)
+        float temp = cam.transform.eulerAngles.x;
+
+        if (temp < rotationBoundsY.x && temp > 180)
         {
-            print("fix down");
-            cam.transform.localEulerAngles = Vector3.right * (startRotationX + rotationBoundsY.x);
+            cam.transform.localEulerAngles = Vector3.right * rotationBoundsY.x;
         }
-        else if (cam.transform.localEulerAngles.x < startRotationX - rotationBoundsY.y)
+        else if (temp > rotationBoundsY.y && temp < 180)
         {
-            print("fix up");
-            cam.transform.localEulerAngles = Vector3.right * (startRotationX - rotationBoundsY.y);
+            cam.transform.localEulerAngles = Vector3.right * rotationBoundsY.y;
         }
     }
 

@@ -48,7 +48,7 @@ public class RandomBannerSanctus : MonoBehaviour
             cumulativeOffset += offset;
 
             // Creating and positioning the new letter
-            GameObject newLetter = Instantiate(Resources.Load<GameObject>("Misc/SanctusLetter"), transform);
+            GameObject newLetter = Instantiate(Resources.Load<GameObject>("SanctusLetter"), transform);
             newLetter.transform.localPosition = Vector3.up * cumulativeOffset;
             newLetter.transform.localScale = Vector3.one * letterScale;
 
@@ -70,7 +70,7 @@ public class RandomBannerSanctus : MonoBehaviour
                     break;
             }
 
-            newLetter.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Sanctus/script_" + asciiCode); // Setting the new letter's sprite
+            newLetter.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sanctus/script_" + asciiCode); // Setting the new letter's sprite
         }
     }
 
