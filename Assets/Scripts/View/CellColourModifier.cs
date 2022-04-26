@@ -39,11 +39,18 @@ public class CellColourModifier : MonoBehaviour
                     Color.RGBToHSV(dict[i], out shaderHue, out shaderSaturation, out shaderValue);
                     Color.RGBToHSV(mainLight.color, out lightHue, out lightSaturation, out lightValue);
 
-                    temp.color = Color.HSVToRGB(
-                        shaderHue + lightHue,
-                        shaderSaturation + (lightSaturation / 5f),
-                        shaderValue * lightValue
-                    );
+                    float tempHue = shaderHue;
+                    float tempSaturation = shaderSaturation;
+                    float tempValue = (shaderValue * lightValue) * 0.6f + 0.1f;
+                    
+                    if (temp.mainTexture != null)
+                    {
+                        tempHue += lightHue;
+                        tempSaturation += lightSaturation / 3f;
+                        tempValue += 0.2f;
+                    }
+
+                    temp.color = Color.HSVToRGB(tempHue, tempSaturation, tempValue);
                 }
             }
 

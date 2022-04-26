@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Candle
   - MainLight
+  - CameraParent
   layers:
   - Default
   - TransparentFX

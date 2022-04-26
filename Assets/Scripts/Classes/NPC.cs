@@ -2,9 +2,9 @@
 
 public class NPC : Character
 {
-    Questline questline;
+    string questline;
 
-    public Questline Questline
+    public string Questline
     {
         get => questline;
         set => questline = value;
@@ -20,17 +20,17 @@ public class NPC : Character
 
     public NPC() : base()
     {
-        questline = null;
+        questline = "None";
         opinions = new Dictionary<string, int>();
     }
 
     public NPC(string name) : base(name)
     {
-        questline = null;
+        questline = "None";
         opinions = new Dictionary<string, int>();
     }
 
-    public override string BasicAttributes() { return base.BasicAttributes() + "\n[NPC]\n" + questline.Name; }
+    public override string BasicAttributes() { return base.BasicAttributes() + "\n[NPC]\n" + questline; }
     public override string ComplexAttributes()
     {
         string temp = "";

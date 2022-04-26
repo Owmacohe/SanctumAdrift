@@ -22,7 +22,7 @@ public class SpiritManager : MonoBehaviour
 
         if (loadPlayerTransformAtStart)
         {
-            player = data.LoadPlayer("player_data.txt", 0);
+            player = data.LoadPlayer(0);
         }
         else
         {
@@ -37,9 +37,9 @@ public class SpiritManager : MonoBehaviour
         
         playerTransform.position = player.PlayerPosition;
         playerTransform.rotation = Quaternion.Euler(player.PlayerRotation);
-        cameraTransform.position = player.CameraPosition;
-        cameraTransform.rotation = Quaternion.Euler(player.CameraRotation);
-        
+        //cameraTransform.position = player.CameraPosition;
+        //cameraTransform.rotation = Quaternion.Euler(player.CameraRotation);
+
         /*
         spiritList = new List<Spirit>();
 

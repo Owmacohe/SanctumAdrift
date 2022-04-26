@@ -8,7 +8,7 @@
         set => name = value;
     }
 
-    public Character() { name = ""; }
+    public Character() { name = "None"; }
     public Character(string name) { this.name = name; }
     
     public virtual string BasicAttributes() { return "[CHARACTER]\n" + name; }

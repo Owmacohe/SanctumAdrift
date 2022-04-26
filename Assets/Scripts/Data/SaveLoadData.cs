@@ -67,6 +67,17 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
+    public void SaveAdventurers(List<Adventurer> adventurers)
+    {
+        string temp = "adventurer_data.txt";
+        Empty(temp);
+        
+        foreach (Adventurer i in adventurers)
+        {
+            SaveLine(temp, i.StringValue());
+        }
+    }
+    
     public void SaveQuestlines(List<Questline> questlines, string fileName)
     {
         string temp = fileName;
@@ -136,9 +147,9 @@ public class SaveLoadData : MonoBehaviour
             
             while (!lines[++offset].Trim().Equals("[NPC]")) { }
 
-            temp.Questline = new Questline(lines[++offset].Trim());
+            temp.Questline = lines[++offset].Trim();
             
-            while (!lines[++offset].Trim().Equals("[SPIRIT]") && !lines[offset].Trim().Equals("[ADVENTURER]") && !lines[offset].Trim().Equals("[CHARACTER]"))
+            while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[SPIRIT]") && !lines[offset].Trim().Equals("[ADVENTURER]") && !lines[offset].Trim().Equals("[CHARACTER]"))
             {
                 string[] split = lines[offset].Trim().Split(' ');
                 
@@ -151,7 +162,7 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
-    public Spirit LoadSpirit(string fileName, int offset)
+    public Spirit LoadSpirit(int offset)
     {
         // [CHARACTER]
         // name
@@ -161,7 +172,8 @@ public class SaveLoadData : MonoBehaviour
         // [SPIRIT]
         // spirit class
         // spirit type
-        
+
+        string fileName = "spirit_data.txt";
         NPC tempNPC = LoadNPC(fileName, offset);
 
         if (tempNPC != null)
@@ -221,7 +233,7 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
-    public Adventurer LoadAdventurer(string fileName, int offset)
+    public Adventurer LoadAdventurer(int offset)
     {
         // [CHARACTER]
         // name
@@ -230,7 +242,8 @@ public class SaveLoadData : MonoBehaviour
         // opinions ...
         // [ADVENTURER]
         // TODO: attributes
-        
+
+        string fileName = "adventurer_data.txt";
         NPC tempNPC = LoadNPC(fileName, offset);
 
         if (tempNPC != null)
@@ -245,7 +258,7 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
-    public Player LoadPlayer(string fileName, int offset)
+    public Player LoadPlayer(int offset)
     {
         // [CHARACTER]
         // name
@@ -260,7 +273,8 @@ public class SaveLoadData : MonoBehaviour
         // camera position
         // camera rotation
         // questlines ...
-        
+
+        string fileName = "player_data.txt";
         Character tempCharacter = LoadCharacter(fileName, offset);
 
         if (tempCharacter != null)
@@ -322,7 +336,7 @@ public class SaveLoadData : MonoBehaviour
             string[] cameraRotationSplit = lines[++offset].Trim().Split(' ');
             temp.SetCameraRotation(new Vector3(float.Parse(cameraRotationSplit[0]), float.Parse(cameraRotationSplit[1]), float.Parse(cameraRotationSplit[2])));
 
-            while (!lines[++offset].Trim().Equals("[CHARACTER]"))
+            while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[CHARACTER]"))
             {
                 temp.Questlines.Add(lines[offset].Trim());
             }
@@ -333,7 +347,7 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
-    public Questline LoadQuestline(string fileName, int offset)
+    public Questline LoadQuestline(int offset)
     {
         // [QUESTLINE]
         // name
@@ -342,7 +356,8 @@ public class SaveLoadData : MonoBehaviour
         // TODO: requirements
         // TODO: rewards
         // nodes ...
-        
+
+        string fileName = "questline_data.txt";
         string[] lines = LoadLines(fileName);
 
         if (lines != null && lines[offset].Trim().Equals("[QUESTLINE]"))
@@ -369,7 +384,7 @@ public class SaveLoadData : MonoBehaviour
                     break;
             }
 
-            while (!lines[++offset].Trim().Equals("[QUESTLINE]"))
+            while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[QUESTLINE]"))
             {
                 string[] nodeSplit = lines[offset].Trim().Split(' ');
                 
@@ -387,7 +402,7 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
-    public QuestlineNode LoadQuestlineNode(string fileName, int offset)
+    public QuestlineNode LoadQuestlineNode(int offset)
     {
         // [NODE]
         // name
@@ -396,6 +411,7 @@ public class SaveLoadData : MonoBehaviour
         // previous name
         // next name
         
+        string fileName = "questline_node_data.txt";
         string[] lines = LoadLines(fileName);
 
         if (lines != null && lines[offset].Trim().Equals("[NODE]"))

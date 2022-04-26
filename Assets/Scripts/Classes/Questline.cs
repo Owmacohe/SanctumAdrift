@@ -50,11 +50,11 @@ public class Questline
 
     public Questline()
     {
-        name = "";
+        name = "None";
         questlineType = QuestlineTypes.None;
         questlineState = QuestlineStates.Unstarted;
         nodes = new List<string>();
-        currentNode = "";
+        currentNode = "None";
     }
     
     public Questline(string name)
@@ -63,7 +63,7 @@ public class Questline
         questlineType = QuestlineTypes.None;
         questlineState = QuestlineStates.Unstarted;
         nodes = new List<string>();
-        currentNode = "";
+        currentNode = "None";
     }
     
     public Questline(string name, QuestlineTypes questlineType, QuestlineStates questlineState)
@@ -72,7 +72,7 @@ public class Questline
         this.questlineType = questlineType;
         this.questlineState = questlineState;
         nodes = new List<string>();
-        currentNode = "";
+        currentNode = "None";
     }
 
     public string StringValue()

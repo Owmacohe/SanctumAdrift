@@ -36,7 +36,7 @@
 
     public QuestlineNode()
     {
-        name = "";
+        name = "None";
         questline = null;
         previous = null;
         next = null;

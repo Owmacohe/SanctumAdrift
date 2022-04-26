@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         float currentRotationX = cam.transform.localEulerAngles.x;
         float rotationFactor = Mathf.Pow(1.5f, -Mathf.Abs(startRotationX - currentRotationX));
+        rotationFactor = 1;
 
         if (rotationFactor > 1)
         {
@@ -83,10 +84,12 @@ public class PlayerController : MonoBehaviour
 
         if (cam.transform.localEulerAngles.x > startRotationX + rotationBoundsY.x)
         {
+            print("fix down");
             cam.transform.localEulerAngles = Vector3.right * (startRotationX + rotationBoundsY.x);
         }
         else if (cam.transform.localEulerAngles.x < startRotationX - rotationBoundsY.y)
         {
+            print("fix up");
             cam.transform.localEulerAngles = Vector3.right * (startRotationX - rotationBoundsY.y);
         }
     }
