@@ -6,15 +6,16 @@ using Random = UnityEngine.Random;
 
 public class SpiritManager : MonoBehaviour
 {
+    [Tooltip("Whether to load the Player's last saved location and rotation at startup")]
     [SerializeField] bool loadPlayerTransformAtStart;
     
-    SaveLoadData data;
+    SaveLoadData data; // Script to save and load Characters and Questlines
     
-    Player player;
-    Transform playerTransform;
-    Transform cameraTransform;
+    Transform playerTransform; // Transform of the player GameObject
+    Transform cameraTransform; // Transform of the camera GameObject
     
-    List<Spirit> spiritList;
+    Player player; // Player class object
+    List<Spirit> spiritList; // Spirit class object list
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class SpiritManager : MonoBehaviour
         {
             player = data.LoadPlayer(0);
         }
+        // If not loading, the Player file is emptied
         else
         {
             player = new Player();
@@ -35,6 +37,7 @@ public class SpiritManager : MonoBehaviour
         
         // TODO: camera position gets weird when loading zoomed in position
         
+        // Assigning the player and camera transforms
         playerTransform.position = player.PlayerPosition;
         playerTransform.rotation = Quaternion.Euler(player.PlayerRotation);
         //cameraTransform.position = player.CameraPosition;
@@ -72,12 +75,16 @@ public class SpiritManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Saving the Player every 2 seconds
         if (Time.time % 2 == 0 && Time.time >= 2)
         {
             SavePlayerTransform();
         }
     }
 
+    /// <summary>
+    /// Saves the player and camera Transforms to the Player file
+    /// </summary>
     void SavePlayerTransform()
     {
         player.SetPlayerPosition(playerTransform.position);
@@ -88,6 +95,10 @@ public class SpiritManager : MonoBehaviour
         data.SavePlayer(player);
     }
 
+    /// <summary>
+    /// Creates a random first name from a list of prefixes and suffixes
+    /// </summary>
+    /// <returns></returns>
     string GenerateName()
     {
         string[] NPCNamePrefixes = {

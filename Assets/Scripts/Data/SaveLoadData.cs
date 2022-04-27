@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class SaveLoadData : MonoBehaviour
 {
-    string path;
+    string path; // Local data path to the Resources Data folder
 
     void Start()
     {
         CheckPath();
     }
 
+    /// <summary>
+    /// Makes sure that the path isn't null
+    /// </summary>
     void CheckPath()
     {
         if (path == null)
@@ -20,12 +23,21 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Empties a given file, making it blank
+    /// </summary>
+    /// <param name="fileName">Path-less name of the target file</param>
     public void Empty(string fileName)
     {
         CheckPath();
         File.WriteAllText(path + fileName, "");
     }
 
+    /// <summary>
+    /// Appends a given line to a given file
+    /// </summary>
+    /// <param name="fileName">Path-less name of the target file</param>
+    /// <param name="line">New lines to be appended</param>
     void SaveLine(string fileName, string line)
     {
         CheckPath();
@@ -34,6 +46,8 @@ public class SaveLoadData : MonoBehaviour
 
         try
         {
+            // Making sure to add the new line as a new line
+            // instead of just at the end of the last line
             if (File.ReadAllLines(path + fileName).Length != 0)
             {
                 temp += "\n";
@@ -43,19 +57,15 @@ public class SaveLoadData : MonoBehaviour
 
         temp += line;
         
-        File.AppendAllText(path + fileName, temp);
+        File.AppendAllText(path + fileName, temp); // Appending the new line
         
-        AssetDatabase.Refresh();
+        AssetDatabase.Refresh(); // Allowing the file to be immediately accessible
     }
 
-    public void SavePlayer(Player character)
-    {
-        string temp = "player_data.txt";
-        Empty(temp);
-        
-        SaveLine(temp, character.StringValue());
-    }
-    
+    /// <summary>
+    /// Re-writing the Spirits in their file
+    /// </summary>
+    /// <param name="spirits">List of Spirits to be written</param>
     public void SaveSpirits(List<Spirit> spirits)
     {
         string temp = "spirit_data.txt";
@@ -67,6 +77,10 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Re-writing the Adventurers in their file
+    /// </summary>
+    /// <param name="adventurers">List of Adventurers to be written</param>
     public void SaveAdventurers(List<Adventurer> adventurers)
     {
         string temp = "adventurer_data.txt";
@@ -78,9 +92,25 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
-    public void SaveQuestlines(List<Questline> questlines, string fileName)
+    /// <summary>
+    /// Re-writing the Player in its file
+    /// </summary>
+    /// <param name="player">Player to be written</param>
+    public void SavePlayer(Player player)
     {
-        string temp = fileName;
+        string temp = "player_data.txt";
+        Empty(temp);
+        
+        SaveLine(temp, player.StringValue());
+    }
+    
+    /// <summary>
+    /// Re-writing the Questlines in their file
+    /// </summary>
+    /// <param name="questlines">List of Questlines to be written</param>
+    public void SaveQuestlines(List<Questline> questlines)
+    {
+        string temp = "questline_data.txt";
         Empty(temp);
         
         foreach (Questline i in questlines)
@@ -89,9 +119,13 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
-    public void SaveQuestlineNodes(List<QuestlineNode> questlineNodes, string fileName)
+    /// <summary>
+    /// Re-writing the QuestlineNodes in their file
+    /// </summary>
+    /// <param name="questlineNodes">List of QuestlineNodes to be written</param>
+    public void SaveQuestlineNodes(List<QuestlineNode> questlineNodes)
     {
-        string temp = fileName;
+        string temp = "questline_node_data.txt"; // TODO: should this be in the same file as the Questlines?
         Empty(temp);
         
         foreach (QuestlineNode i in questlineNodes)
@@ -100,6 +134,12 @@ public class SaveLoadData : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Gets all the lines from a given file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="fileName">Path-less name of the target file</param>
+    /// <returns>String array of lines from the file</returns>
     string[] LoadLines(string fileName)
     {
         CheckPath();
@@ -114,6 +154,13 @@ public class SaveLoadData : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Extracts a Character object from a given text file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="fileName">Path-less name of the target file</param>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted Character</returns>
     public Character LoadCharacter(string fileName, int offset)
     {
         // [CHARACTER]
@@ -121,6 +168,7 @@ public class SaveLoadData : MonoBehaviour
         
         string[] lines = LoadLines(fileName);
 
+        // Making sure that the file exists and that a Character starts at this offset
         if (lines != null && lines[offset].Trim().Equals("[CHARACTER]"))
         {
             return new Character(lines[++offset].Trim());
@@ -129,6 +177,13 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Extracts a NPC object from a given text file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="fileName">Path-less name of the target file</param>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted NPC</returns>
     public NPC LoadNPC(string fileName, int offset)
     {
         // [CHARACTER]
@@ -139,16 +194,18 @@ public class SaveLoadData : MonoBehaviour
 
         Character tempCharacter = LoadCharacter(fileName, offset);
 
+        // Making sure that the file exists and that a Character starts at this offset
         if (tempCharacter != null)
         {
             string[] lines = LoadLines(fileName);
             
             NPC temp = new NPC(tempCharacter.Name);
             
-            while (!lines[++offset].Trim().Equals("[NPC]")) { }
+            while (!lines[++offset].Trim().Equals("[NPC]")) { } // Skipping until the NPC basic attributes
 
             temp.Questline = lines[++offset].Trim();
             
+            // Skipping over anything that's not a NPC opinion (complex attributes)
             while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[SPIRIT]") && !lines[offset].Trim().Equals("[ADVENTURER]") && !lines[offset].Trim().Equals("[CHARACTER]"))
             {
                 string[] split = lines[offset].Trim().Split(' ');
@@ -162,6 +219,12 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Extracts a Spirit object from the Spirit file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted Spirit</returns>
     public Spirit LoadSpirit(int offset)
     {
         // [CHARACTER]
@@ -176,6 +239,7 @@ public class SaveLoadData : MonoBehaviour
         string fileName = "spirit_data.txt";
         NPC tempNPC = LoadNPC(fileName, offset);
 
+        // Making sure that the file exists and that a Character starts at this offset
         if (tempNPC != null)
         {
             string[] lines = LoadLines(fileName);
@@ -184,7 +248,7 @@ public class SaveLoadData : MonoBehaviour
             temp.Questline = tempNPC.Questline;
             temp.Opinions = tempNPC.Opinions;
             
-            while (!lines[++offset].Trim().Equals("[SPIRIT]")) { }
+            while (!lines[++offset].Trim().Equals("[SPIRIT]")) { } // Skipping until the Spirit basic attributes
             
             switch (lines[++offset].Trim())
             {
@@ -233,6 +297,12 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Extracts an Adventurer object from the Adventurer file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted Adventurer</returns>
     public Adventurer LoadAdventurer(int offset)
     {
         // [CHARACTER]
@@ -246,6 +316,7 @@ public class SaveLoadData : MonoBehaviour
         string fileName = "adventurer_data.txt";
         NPC tempNPC = LoadNPC(fileName, offset);
 
+        // Making sure that the file exists and that a Character starts at this offset
         if (tempNPC != null)
         {
             Adventurer temp = new Adventurer(tempNPC.Name);
@@ -258,6 +329,12 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Extracts a Player object from the Player file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted Player</returns>
     public Player LoadPlayer(int offset)
     {
         // [CHARACTER]
@@ -277,13 +354,14 @@ public class SaveLoadData : MonoBehaviour
         string fileName = "player_data.txt";
         Character tempCharacter = LoadCharacter(fileName, offset);
 
+        // Making sure that the file exists and that a Character starts at this offset
         if (tempCharacter != null)
         {
             string[] lines = LoadLines(fileName);
 
             Player temp = new Player(tempCharacter.Name);
 
-            while (!lines[++offset].Trim().Equals("[PLAYER]")) { }
+            while (!lines[++offset].Trim().Equals("[PLAYER]")) { } // Skipping until the Player basic attributes
             
             switch (lines[++offset].Trim())
             {
@@ -336,6 +414,7 @@ public class SaveLoadData : MonoBehaviour
             string[] cameraRotationSplit = lines[++offset].Trim().Split(' ');
             temp.SetCameraRotation(new Vector3(float.Parse(cameraRotationSplit[0]), float.Parse(cameraRotationSplit[1]), float.Parse(cameraRotationSplit[2])));
 
+            // Skipping over anything that's not a Player questline (complex attributes)
             while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[CHARACTER]"))
             {
                 temp.Questlines.Add(lines[offset].Trim());
@@ -346,7 +425,13 @@ public class SaveLoadData : MonoBehaviour
 
         return null;
     }
-
+    
+    /// <summary>
+    /// Extracts a Questline object from the Questline file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted Questline</returns>
     public Questline LoadQuestline(int offset)
     {
         // [QUESTLINE]
@@ -360,6 +445,7 @@ public class SaveLoadData : MonoBehaviour
         string fileName = "questline_data.txt";
         string[] lines = LoadLines(fileName);
 
+        // Making sure that the file exists and that a Questline starts at this offset
         if (lines != null && lines[offset].Trim().Equals("[QUESTLINE]"))
         {
             Questline temp = new Questline(lines[++offset].Trim());
@@ -384,6 +470,7 @@ public class SaveLoadData : MonoBehaviour
                     break;
             }
 
+            // Adding nodes until a new Questline is found
             while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[QUESTLINE]"))
             {
                 string[] nodeSplit = lines[offset].Trim().Split(' ');
@@ -402,6 +489,12 @@ public class SaveLoadData : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Extracts a QuestlineNode object from the QuestlineNode file
+    /// (returns null if the file doesn't exist)
+    /// </summary>
+    /// <param name="offset">Starting line number in the file</param>
+    /// <returns>Extracted QuestlineNode</returns>
     public QuestlineNode LoadQuestlineNode(int offset)
     {
         // [NODE]
@@ -411,9 +504,10 @@ public class SaveLoadData : MonoBehaviour
         // previous name
         // next name
         
-        string fileName = "questline_node_data.txt";
+        string fileName = "questline_node_data.txt"; // TODO: should this be in the same file as the Questlines?
         string[] lines = LoadLines(fileName);
 
+        // Making sure that the file exists and that a QuestlineNode starts at this offset
         if (lines != null && lines[offset].Trim().Equals("[NODE]"))
         {
             return new QuestlineNode(

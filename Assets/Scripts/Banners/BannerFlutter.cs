@@ -8,8 +8,7 @@ public class BannerFlutter : MonoBehaviour
     [Tooltip("Length of the banner to flutter")]
     [SerializeField] BannerSizes size;
     [Tooltip("Chance for the banner to change velocity (aka flutter)")]
-    [Range(1, 10)]
-    [SerializeField] int flutterFrequency = 5;
+    [Range(1, 10)] [SerializeField] int flutterFrequency = 5;
 
     float speed; // Maximum amount of velocity that can be applied
     float max; // Maximum x-axis rotation that can be applied to the banner

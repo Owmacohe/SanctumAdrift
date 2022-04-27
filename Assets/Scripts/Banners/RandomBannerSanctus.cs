@@ -74,6 +74,11 @@ public class RandomBannerSanctus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets a random string from a string array
+    /// </summary>
+    /// <param name="arr">array to be selected from</param>
+    /// <returns>Random element of the array</returns>
     string GetRandomFromArray(string[] arr)
     {
         return arr[Random.Range(0, arr.Length - 1)];
