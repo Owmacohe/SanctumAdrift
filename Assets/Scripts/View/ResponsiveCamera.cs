@@ -34,34 +34,31 @@ public class ResponsiveCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!player.isRotating)
-        {
-            Vector3 amount = direction.normalized * speed;
+        Vector3 amount = direction.normalized * speed;
         
-            // Zooming out if the player can be "seen"
-            if (isHittingPlayer)
+        // Zooming out if the player can be "seen"
+        if (isHittingPlayer)
+        {
+            if (direction.magnitude < startDistance)
             {
-                if (direction.magnitude < startDistance)
-                {
-                    transform.position -= amount;
-                    //print("away");
-                }
-            
-                // Making sure it doesn't zoom out too far
-                if (!CheckHitting())
-                {
-                    transform.position += amount;
-                    //print("fix close");
-                }
+                transform.position -= amount;
+                //print("away");
             }
-            // Zooming in if the player can't be "seen"
-            else
+            
+            // Making sure it doesn't zoom out too far
+            if (!CheckHitting())
             {
-                if (direction.magnitude > minDistance)
-                {
-                    transform.position += amount;
-                    //print("close");
-                }
+                transform.position += amount;
+                //print("fix close");
+            }
+        }
+        // Zooming in if the player can't be "seen"
+        else
+        {
+            if (direction.magnitude > minDistance)
+            {
+                transform.position += amount;
+                //print("close");
             }
         }
     }

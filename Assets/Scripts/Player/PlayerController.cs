@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     GameObject keyImage, buttonImage, buttonX, buttonSquare; // Popup UI elements
 
     [HideInInspector] public bool isRotating; // Whether the camera has been set to slowly rotate around the player
+    Transform conversant;
 
     void Start()
     {
@@ -47,10 +48,10 @@ public class PlayerController : MonoBehaviour
         collidingObjects = new List<GameObject>();
         
         // Setting the popup buttons accordingly
-        StandardUISelectorElements selectorUI = FindObjectOfType<StandardUISelectorElements>();
-        keyImage = selectorUI.nameText.gameObject.transform.parent.GetChild(3).gameObject;
+        Transform selectorUI = FindObjectOfType<StandardUISelectorElements>().nameText.gameObject.transform.parent;
+        keyImage = selectorUI.GetChild(3).gameObject;
         keyImage.SetActive(false);
-        buttonImage = selectorUI.nameText.gameObject.transform.parent.GetChild(4).gameObject;
+        buttonImage = selectorUI.GetChild(4).gameObject;
         buttonX = buttonImage.transform.GetChild(0).gameObject;
         buttonSquare = buttonImage.transform.GetChild(1).gameObject;
         buttonImage.SetActive(false);
@@ -190,7 +191,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        viewObject.position = transform.position;
+        if (isRotating)
+        {
+            viewObject.position = (transform.position + conversant.position) / 2f;
+            cam.LookAt(viewObject.position + Vector3.up);
+        }
+        else
+        {
+            viewObject.position = transform.position;
+        }
         
         // Checking to see if a short raycast can hit a ground object under it
         RaycastHit hit;
@@ -207,14 +216,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="rot">New value for isRotating</param>
     public void SetRotating(bool rot) { isRotating = rot; }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        collidingObjects.Add(collision.gameObject);
-    }
     
-    void OnCollisionExit(Collision collision)
-    {
-        collidingObjects.Remove(collision.gameObject);
-    }
+    /// <summary>
+    /// Sets the last NPC conversed with
+    /// </summary>
+    /// <param name="conv">The new NPC being conversed with</param>
+    public void SetConversant(Transform conv) { conversant = conv; }
+
+    void OnCollisionEnter(Collision collision) { collidingObjects.Add(collision.gameObject); }
+    void OnCollisionExit(Collision collision) { collidingObjects.Remove(collision.gameObject); }
 }
