@@ -850,6 +850,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reflector
       objectReference: {fileID: 0}
+    - target: {fileID: 6639052022563195770, guid: 326e1dd031efa3545b6429f87d75f037, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639052022563195770, guid: 326e1dd031efa3545b6429f87d75f037, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.34668663
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 326e1dd031efa3545b6429f87d75f037, type: 3}
 --- !u!1001 &4359914650212136094
