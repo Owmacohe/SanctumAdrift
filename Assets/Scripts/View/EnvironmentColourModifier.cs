@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CelColourModifier : MonoBehaviour
+public class EnvironmentColourModifier : MonoBehaviour
 {
     Light mainLight; // Main scene light
     Color lastColour; // The last saved colour of the mainLight
