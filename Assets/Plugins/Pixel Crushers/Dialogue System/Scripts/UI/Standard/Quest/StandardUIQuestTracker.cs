@@ -281,6 +281,7 @@ namespace PixelCrushers.DialogueSystem
             questTrack.Initialize();
             var questState = QuestLog.GetQuestState(quest);
             questTrack.SetDescription(heading, questState);
+            //questTrack.SetDescription(QuestLog.GetQuestDescription(quest), questState);
             int entryCount = QuestLog.GetQuestEntryCount(quest);
             for (int i = 1; i <= entryCount; i++)
             {

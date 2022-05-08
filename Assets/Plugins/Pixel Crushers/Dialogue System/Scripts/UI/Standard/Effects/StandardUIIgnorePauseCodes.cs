@@ -1,7 +1,9 @@
-﻿// Copyright (c) Pixel Crushers. All rights reserved.
+// Recompile at 2022-05-08 2:28:10 PM
+// Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -18,7 +20,7 @@ namespace PixelCrushers.DialogueSystem
 
         public void Start()
         {
-            text.uiText = GetComponentInChildren<UnityEngine.UI.Text>();
+            text.uiText = GetComponentInChildren<TMP_Text>();
 #if TMP_PRESENT
             text.textMeshProUGUI = GetComponentInChildren<TMPro.TextMeshProUGUI>();
 #endif

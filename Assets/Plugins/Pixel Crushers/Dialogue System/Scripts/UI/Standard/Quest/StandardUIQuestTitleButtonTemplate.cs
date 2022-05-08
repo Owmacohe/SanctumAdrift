@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Pixel Crushers. All rights reserved.
 
+using TMPro;
 using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
@@ -32,7 +33,7 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void Assign(string questName, string displayName, ToggleChangedDelegate trackToggleDelegate)
         {
-            if (UITextField.IsNull(label)) label.uiText = button.GetComponentInChildren<UnityEngine.UI.Text>();
+            if (UITextField.IsNull(label)) label.uiText = button.GetComponentInChildren<TMP_Text>();
             name = questName;
             label.text = displayName;
             var canTrack = QuestLog.IsQuestActive(questName) && QuestLog.IsQuestTrackingAvailable(questName);

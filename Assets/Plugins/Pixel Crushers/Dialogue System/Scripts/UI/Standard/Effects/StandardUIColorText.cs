@@ -1,5 +1,7 @@
-﻿// Copyright (c) Pixel Crushers. All rights reserved.
+// Recompile at 2022-05-08 2:28:10 PM
+// Copyright (c) Pixel Crushers. All rights reserved.
 
+using TMPro;
 using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
@@ -22,7 +24,7 @@ namespace PixelCrushers.DialogueSystem
 
         private void Awake()
         {
-            if (text.gameObject == null) text.uiText = GetComponentInChildren<UnityEngine.UI.Text>();
+            if (text.gameObject == null) text.uiText = GetComponentInChildren<TMP_Text>();
 #if TMP_PRESENT
             if (text.gameObject == null) text.textMeshProUGUI = GetComponentInChildren<TMPro.TextMeshProUGUI>();
 #endif

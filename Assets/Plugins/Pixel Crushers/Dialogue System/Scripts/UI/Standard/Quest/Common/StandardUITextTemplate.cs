@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Pixel Crushers. All rights reserved.
 
+using TMPro;
 using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
@@ -29,7 +30,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (UITextField.IsNull(text))
             {
-                text.uiText = GetComponentInChildren<UnityEngine.UI.Text>();
+                text.uiText = GetComponentInChildren<TMP_Text>();
                 if (UITextField.IsNull(text) && Debug.isDebugBuild) Debug.LogError("Dialogue System: UI Text is unassigned.", this);
             }
         }

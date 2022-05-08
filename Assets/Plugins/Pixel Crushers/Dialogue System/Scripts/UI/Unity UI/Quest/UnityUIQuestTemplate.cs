@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -19,7 +20,7 @@ namespace PixelCrushers.DialogueSystem
         public UnityEngine.UI.Button heading;
 
         [Tooltip("Used for Description")]
-        public UnityEngine.UI.Text description;
+        public TMP_Text description;
 
         public UnityUIQuestTemplateAlternateDescriptions alternateDescriptions = new UnityUIQuestTemplateAlternateDescriptions();
 
@@ -28,7 +29,7 @@ namespace PixelCrushers.DialogueSystem
         public Transform entryContainer;
 
         [Tooltip("Used for quest entries")]
-        public UnityEngine.UI.Text entryDescription;
+        public TMP_Text entryDescription;
 
         public UnityUIQuestTemplateAlternateDescriptions alternateEntryDescriptions = new UnityUIQuestTemplateAlternateDescriptions();
 
@@ -133,7 +134,7 @@ namespace PixelCrushers.DialogueSystem
             numEntries++;
         }
 
-        protected void InstantiateFirstValidTextElement(string text, Transform container, params UnityEngine.UI.Text[] textElements)
+        protected void InstantiateFirstValidTextElement(string text, Transform container, params TMP_Text[] textElements)
         {
             for (int i = 0; i < textElements.Length; i++)
             {
@@ -143,7 +144,7 @@ namespace PixelCrushers.DialogueSystem
                     entryInstances.Add(instance); ;
                     instance.transform.SetParent(container.transform, false);
                     instance.SetActive(true);
-                    var textElement = instance.GetComponent<UnityEngine.UI.Text>();
+                    var textElement = instance.GetComponent<TMP_Text>();
                     if (textElement != null) textElement.text = text;
                     return;
                 }

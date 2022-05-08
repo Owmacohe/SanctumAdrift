@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -17,7 +18,7 @@ namespace PixelCrushers.DialogueSystem
 
         [Header("Quest Heading")]
         [Tooltip("The heading - name or description depends on tracker setting")]
-        public UnityEngine.UI.Text description;
+        public TMP_Text description;
 
         public UnityUIQuestTemplateAlternateDescriptions alternateDescriptions = new UnityUIQuestTemplateAlternateDescriptions();
 
@@ -26,11 +27,11 @@ namespace PixelCrushers.DialogueSystem
         public Transform entryContainer;
 
         [Tooltip("Used for quest entries")]
-        public UnityEngine.UI.Text entryDescription;
+        public TMP_Text entryDescription;
 
         public UnityUIQuestTemplateAlternateDescriptions alternateEntryDescriptions = new UnityUIQuestTemplateAlternateDescriptions();
 
-        private List<UnityEngine.UI.Text> instances = null;
+        private List<TMP_Text> instances = null;
 
         public bool ArePropertiesAssigned
         {
@@ -58,7 +59,7 @@ namespace PixelCrushers.DialogueSystem
                         if (instances[i] != null) Destroy(instances[i].gameObject);
                     }
                 }
-                instances = new List<UnityEngine.UI.Text>();
+                instances = new List<TMP_Text>();
             }
             numEntries = 0;
         }
@@ -82,7 +83,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private void SetFirstValidTextElement(string text, params UnityEngine.UI.Text[] textElements)
+        private void SetFirstValidTextElement(string text, params TMP_Text[] textElements)
         {
             for (int i = 0; i < textElements.Length; i++)
             {
@@ -140,7 +141,7 @@ namespace PixelCrushers.DialogueSystem
             numEntries++;
         }
 
-        private void InstantiateFirstValidTextElement(string text, Transform container, params UnityEngine.UI.Text[] textElements)
+        private void InstantiateFirstValidTextElement(string text, Transform container, params TMP_Text[] textElements)
         {
             for (int i = 0; i < textElements.Length; i++)
             {
@@ -149,7 +150,7 @@ namespace PixelCrushers.DialogueSystem
                     var go = Instantiate(textElements[i].gameObject) as GameObject;
                     go.transform.SetParent(container.transform, false);
                     go.SetActive(true);
-                    var textElement = go.GetComponent<UnityEngine.UI.Text>();
+                    var textElement = go.GetComponent<TMP_Text>();
                     if (textElement != null) textElement.text = text;
                     instances.Add(textElement);
                     return;

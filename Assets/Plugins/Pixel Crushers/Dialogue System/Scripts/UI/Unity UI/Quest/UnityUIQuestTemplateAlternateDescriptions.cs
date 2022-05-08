@@ -1,5 +1,6 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
+using TMPro;
 using UnityEngine;
 
 namespace PixelCrushers.DialogueSystem
@@ -10,10 +11,10 @@ namespace PixelCrushers.DialogueSystem
     {
 
         [Tooltip("(Optional) If set, use if state is success")]
-        public UnityEngine.UI.Text successDescription;
+        public TMP_Text successDescription;
 
         [Tooltip("(Optional) If set, use if state is failure")]
-        public UnityEngine.UI.Text failureDescription;
+        public TMP_Text failureDescription;
 
         public void SetActive(bool value)
         {

@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     GameObject keyImage, buttonImage, buttonX, buttonSquare; // Popup UI elements
 
     [HideInInspector] public bool isRotating; // Whether the camera has been set to slowly rotate around the player
-    Transform conversant;
+    [HideInInspector] public Transform conversant;
 
     void Start()
     {
@@ -191,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        /*
         if (isRotating)
         {
             viewObject.position = (transform.position + conversant.position) / 2f;
@@ -200,6 +201,9 @@ public class PlayerController : MonoBehaviour
         {
             viewObject.position = transform.position;
         }
+        */
+        
+        viewObject.position = transform.position;
         
         // Checking to see if a short raycast can hit a ground object under it
         RaycastHit hit;
@@ -216,12 +220,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="rot">New value for isRotating</param>
     public void SetRotating(bool rot) { isRotating = rot; }
-    
-    /// <summary>
-    /// Sets the last NPC conversed with
-    /// </summary>
-    /// <param name="conv">The new NPC being conversed with</param>
-    public void SetConversant(Transform conv) { conversant = conv; }
 
     void OnCollisionEnter(Collision collision) { collidingObjects.Add(collision.gameObject); }
     void OnCollisionExit(Collision collision) { collidingObjects.Remove(collision.gameObject); }

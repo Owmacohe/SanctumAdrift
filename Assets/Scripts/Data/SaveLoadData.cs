@@ -105,36 +105,6 @@ public class SaveLoadData : MonoBehaviour
     }
     
     /// <summary>
-    /// Re-writing the Questlines in their file
-    /// </summary>
-    /// <param name="questlines">List of Questlines to be written</param>
-    public void SaveQuestlines(List<Questline> questlines)
-    {
-        string temp = "questline_data.txt";
-        Empty(temp);
-        
-        foreach (Questline i in questlines)
-        {
-            SaveLine(temp, i.StringValue());
-        }
-    }
-    
-    /// <summary>
-    /// Re-writing the QuestlineNodes in their file
-    /// </summary>
-    /// <param name="questlineNodes">List of QuestlineNodes to be written</param>
-    public void SaveQuestlineNodes(List<QuestlineNode> questlineNodes)
-    {
-        string temp = "questline_node_data.txt"; // TODO: should this be in the same file as the Questlines?
-        Empty(temp);
-        
-        foreach (QuestlineNode i in questlineNodes)
-        {
-            SaveLine(temp, i.StringValue());
-        }
-    }
-    
-    /// <summary>
     /// Gets all the lines from a given file
     /// (returns null if the file doesn't exist)
     /// </summary>
@@ -421,101 +391,6 @@ public class SaveLoadData : MonoBehaviour
             }
 
             return temp;
-        }
-
-        return null;
-    }
-    
-    /// <summary>
-    /// Extracts a Questline object from the Questline file
-    /// (returns null if the file doesn't exist)
-    /// </summary>
-    /// <param name="offset">Starting line number in the file</param>
-    /// <returns>Extracted Questline</returns>
-    public Questline LoadQuestline(int offset)
-    {
-        // [QUESTLINE]
-        // name
-        // questline type
-        // questline state
-        // TODO: requirements
-        // TODO: rewards
-        // nodes ...
-
-        string fileName = "questline_data.txt";
-        string[] lines = LoadLines(fileName);
-
-        // Making sure that the file exists and that a Questline starts at this offset
-        if (lines != null && lines[offset].Trim().Equals("[QUESTLINE]"))
-        {
-            Questline temp = new Questline(lines[++offset].Trim());
-            
-            switch (lines[++offset].Trim())
-            {
-                case "None":
-                    temp.QuestlineType = Questline.QuestlineTypes.None;
-                    break;
-            }
-            
-            switch (lines[++offset].Trim())
-            {
-                case "Unstarted":
-                    temp.QuestlineState = Questline.QuestlineStates.Unstarted;
-                    break;
-                case "Started":
-                    temp.QuestlineState = Questline.QuestlineStates.Started;
-                    break;
-                case "Finished":
-                    temp.QuestlineState = Questline.QuestlineStates.Finished;
-                    break;
-            }
-
-            // Adding nodes until a new Questline is found
-            while (offset + 1 < lines.Length && !lines[++offset].Trim().Equals("[QUESTLINE]"))
-            {
-                string[] nodeSplit = lines[offset].Trim().Split(' ');
-                
-                temp.Nodes.Add(nodeSplit[0]);
-
-                if (nodeSplit.Length > 1 && nodeSplit[1].Equals("(current)"))
-                {
-                    temp.CurrentNode = nodeSplit[1];
-                }
-            }
-
-            return temp;
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// Extracts a QuestlineNode object from the QuestlineNode file
-    /// (returns null if the file doesn't exist)
-    /// </summary>
-    /// <param name="offset">Starting line number in the file</param>
-    /// <returns>Extracted QuestlineNode</returns>
-    public QuestlineNode LoadQuestlineNode(int offset)
-    {
-        // [NODE]
-        // name
-        // questline name
-        // TODO: requirements
-        // previous name
-        // next name
-        
-        string fileName = "questline_node_data.txt"; // TODO: should this be in the same file as the Questlines?
-        string[] lines = LoadLines(fileName);
-
-        // Making sure that the file exists and that a QuestlineNode starts at this offset
-        if (lines != null && lines[offset].Trim().Equals("[NODE]"))
-        {
-            return new QuestlineNode(
-                lines[++offset].Trim(), 
-                lines[++offset].Trim(), 
-                lines[++offset].Trim(), 
-                lines[++offset].Trim()
-            );
         }
 
         return null;

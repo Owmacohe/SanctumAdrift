@@ -1,7 +1,9 @@
-﻿// Copyright (c) Pixel Crushers. All rights reserved.
+// Recompile at 2022-05-08 2:28:10 PM
+// Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
 using System;
+using TMPro;
 
 namespace PixelCrushers
 {
@@ -14,12 +16,12 @@ namespace PixelCrushers
     {
 
         [SerializeField]
-        private UnityEngine.UI.Text m_uiText;
+        private TMP_Text m_uiText;
 
         /// <summary>
         /// The UI.Text assigned to this UI text field.
         /// </summary>
-        public UnityEngine.UI.Text uiText
+        public TMP_Text uiText
         {
             get { return m_uiText; }
             set { m_uiText = value; }
@@ -138,7 +140,7 @@ namespace PixelCrushers
 #endif
         }
 
-        public UITextField(UnityEngine.UI.Text uiText)
+        public UITextField(TMP_Text uiText)
         {
             this.uiText = uiText;
 #if TMP_PRESENT
