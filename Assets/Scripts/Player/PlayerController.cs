@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 temp = new Vector3(direction.x, rb.velocity.y, direction.y); // Gets the identity Vector3 direction to go in
             
-            if (collidingObjects.Count == 0 || collidingObjects.Contains(ground))
+            if (isGrounded || collidingObjects.Count == 0)
             {
                 rb.velocity = viewObject.TransformVector(temp); // Pushes the player in the direction
             }
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         
         // Checking to see if a short raycast can hit a ground object under it
         RaycastHit hit;
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f);
         
         if (isGrounded)
         {

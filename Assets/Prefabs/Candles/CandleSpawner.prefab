@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiNum: 3
   isRandomMultiNum: 1
+  isRotationRandom: 1
   prefabList:
   - {fileID: 7004548796026681172, guid: ae6000f30f4c4ef4f81bb7bddd8a204a, type: 3}
   - {fileID: 7489639186469583253, guid: 4bf060e8c89527143aebaae1aa58e956, type: 3}

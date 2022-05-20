@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7433667678284215203}
   - {fileID: 5737564646045891337}
@@ -59,6 +60,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1102174877367076652}
   - {fileID: 8207904836922882477}
@@ -91,6 +93,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1655246239162465179}
   - {fileID: 778574006296253676}
@@ -124,6 +127,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.13052617, z: -0, w: 0.99144495}
   m_LocalPosition: {x: -0.9702426, y: 0, z: -0.120958894}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6075672649424925282}
   - {fileID: 6924729109072859544}
@@ -158,6 +162,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.17364825, z: -0, w: 0.9848078}
   m_LocalPosition: {x: 1.0619876, y: 0, z: -0.20151255}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7543129298244780838}
   - {fileID: 4670427547091570603}
@@ -193,6 +198,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: -2.605, y: 0.28, z: -1.165}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3065231091766935032}
   - {fileID: 8184013949588752566}
@@ -227,6 +233,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6963418396698409875}
   - {fileID: 6963418396757928106}
@@ -278,6 +285,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.3420201, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 2.521, y: 0.28, z: -1.081}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1964956828247264706}
   - {fileID: 4638280939510462604}
@@ -311,6 +319,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.17364825, z: -0, w: 0.9848078}
   m_LocalPosition: {x: 1.0619876, y: 0, z: -0.20151255}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6441161778248348444}
   - {fileID: 4995912293597355115}
@@ -345,6 +354,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 593302322064378288}
   - {fileID: 4176767539527285130}
@@ -377,6 +387,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.13052617, z: -0, w: 0.99144495}
   m_LocalPosition: {x: -0.9702426, y: 0, z: -0.120958894}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7321778455588061784}
   - {fileID: 5896508015278842274}
@@ -433,6 +444,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5218988478895993936, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218988478895993936, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5218988478895993937, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
@@ -963,6 +978,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5218988478895993936, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218988478895993936, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5218988478895993937, guid: 6c79e7dc577d18d4dbab870c47805645, type: 3}
