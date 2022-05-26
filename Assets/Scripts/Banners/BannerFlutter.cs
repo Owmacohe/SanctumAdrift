@@ -9,6 +9,8 @@ public class BannerFlutter : MonoBehaviour
     [SerializeField] BannerSizes size;
     [Tooltip("Chance for the banner to change velocity (aka flutter)")]
     [Range(1, 10)] [SerializeField] int flutterFrequency = 5;
+    [Tooltip("Which way the banner should flutter")]
+    [Range(-1, 1)] [SerializeField] int direction = 1;
 
     float speed; // Maximum amount of velocity that can be applied
     float max; // Maximum x-axis rotation that can be applied to the banner
@@ -50,16 +52,16 @@ public class BannerFlutter : MonoBehaviour
             // Checking to see if it can flutter
             if (Random.Range(0, 100) <= flutterFrequency)
             {
-                bannerRB.angularVelocity = transform.TransformVector(Vector3.right * speedRange); // Setting a negative to positive velocity value
+                bannerRB.angularVelocity = direction * transform.TransformVector(Vector3.right * speedRange); // Setting a negative to positive velocity value
             }
         }
         else if (bannerTransform.localRotation.x < 0)
         {
-            bannerRB.angularVelocity = transform.TransformVector(Vector3.right * (speed / 20)); // Setting a slight positive velocity value
+            bannerRB.angularVelocity = direction * transform.TransformVector(Vector3.right * (speed / 20)); // Setting a slight positive velocity value
         }
         else if (bannerTransform.localRotation.x >= max)
         {
-            bannerRB.angularVelocity = transform.TransformVector(Vector3.right * (-speed / 20)); // Setting a slight negative velocity value
+            bannerRB.angularVelocity = direction * transform.TransformVector(Vector3.right * (-speed / 20)); // Setting a slight negative velocity value
         }
 
         //Debug.Log("Rotation: " + bannerTransform.rotation.x + "\nVelocity: " + bannerRB.angularVelocity.x);

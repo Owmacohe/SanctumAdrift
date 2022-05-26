@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1930495391924448228}
   - component: {fileID: 4408610744556298030}
   - component: {fileID: 5234843990015912325}
-  - component: {fileID: 6671806440557406658}
   m_Layer: 0
   m_Name: Pipe_Default
   m_TagString: Untagged
@@ -100,19 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01622697, y: 0.08539616, z: 0.026379531}
   m_Center: {x: -4.656613e-10, y: 0, z: 0.012799283}
---- !u!114 &6671806440557406658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2751264435758710523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72127f68163162c4c87f8e83736516a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTilt: 30
 --- !u!1001 &1670300756242098791
 PrefabInstance:
   m_ObjectHideFlags: 0
