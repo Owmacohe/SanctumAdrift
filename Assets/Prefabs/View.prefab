@@ -353,4 +353,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42aa399df37f6314299a0d1c69e708fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pixelation: 2
+  pixelation: 1
