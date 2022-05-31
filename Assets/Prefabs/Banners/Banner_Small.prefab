@@ -82,7 +82,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 0
-  flutterFrequency: 1
+  flutterFrequency: 2
+  direction: 1
 --- !u!1001 &468842243303003855
 PrefabInstance:
   m_ObjectHideFlags: 0
