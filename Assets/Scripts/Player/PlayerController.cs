@@ -15,13 +15,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed = 0.05f;
     [Tooltip("Global vertical camera rotation bounds")]
     [SerializeField] Vector2 rotationBoundsY = new Vector2(360, 30);
+    [Tooltip("A series of objects representing raycasts straight down to check when the player is standing on the ground")]
+    [SerializeField] GameObject[] raycasters;
     
     Vector2 direction; // Current identity Vector2 direction of movement
     
     Rigidbody rb; // Player RigidBody
 
     Transform cam; // Camera Transform
-    float startRotationX; // Startup x rotation of the gcamera
+    float startRotationX; // Startup x rotation of the camera
     Transform viewObject; // Camera parent object
     
     bool isGrounded; // Whether the player is currently on the ground
@@ -158,7 +160,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 temp = new Vector3(direction.x, rb.velocity.y, direction.y); // Gets the identity Vector3 direction to go in
             
-            if (isGrounded || collidingObjects.Count == 0)
+            if (isGrounded || (!isGrounded && collidingObjects.Count == 0))
             {
                 rb.velocity = viewObject.TransformVector(temp); // Pushes the player in the direction
             }
@@ -202,17 +204,35 @@ public class PlayerController : MonoBehaviour
             viewObject.position = transform.position;
         }
         */
-        
+
+        isGrounded = false;
         viewObject.position = transform.position;
         
-        // Checking to see if a short raycast can hit a ground object under it
-        RaycastHit hit;
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f);
+        // Checking to see if a series of short raycasts can hit a ground object under it
         
-        if (isGrounded)
+        List<GameObject> raycastHits = new List<GameObject>();
+
+        foreach (GameObject i in raycasters)
         {
-            ground = hit.transform.gameObject;
+            bool temp = Physics.Raycast(i.transform.position, Vector3.down, out var hit, 0.5f);
+
+            if (temp && !raycastHits.Contains(hit.transform.gameObject))
+            {
+                raycastHits.Add(hit.transform.gameObject);
+            }
         }
+
+        foreach (GameObject j in raycastHits)
+        {
+            if (collidingObjects.Contains(j))
+            {
+                isGrounded = true;
+                ground = j;
+                break;
+            }
+        }
+        
+        // TODO: this raycasting isn't perfect, especially when standing against walls that have > 90 degrees of tilt away
     }
 
     /// <summary>

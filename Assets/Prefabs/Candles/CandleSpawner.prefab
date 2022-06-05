@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2976204796610642869}
   - component: {fileID: 2976204796610642858}
+  - component: {fileID: -8724134517646290890}
   m_Layer: 0
   m_Name: CandleSpawner
   m_TagString: Untagged
@@ -53,3 +54,16 @@ MonoBehaviour:
   - {fileID: 2291618064826249899, guid: 6595c9871b3bb2f42b537c09f52443f8, type: 3}
   - {fileID: 5981791466225500141, guid: aecc186c4d01a9241805ea6c0368b196, type: 3}
   - {fileID: 1638738365684504447, guid: 63ce05dcbdea87d4aa29e945b220f009, type: 3}
+--- !u!114 &-8724134517646290890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976204796610642868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9a66937a614292a96094307d356104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnChance: 9
