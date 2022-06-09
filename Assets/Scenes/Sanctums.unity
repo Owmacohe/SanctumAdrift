@@ -5590,10 +5590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spirit Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 2922245265413579905, guid: 0e3c6e2c96e41ba4b8cf7ee610a98495, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2922245265413579910, guid: 0e3c6e2c96e41ba4b8cf7ee610a98495, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -5636,6 +5632,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2922245265413579910, guid: 0e3c6e2c96e41ba4b8cf7ee610a98495, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922245265413579911, guid: 0e3c6e2c96e41ba4b8cf7ee610a98495, type: 3}
+      propertyPath: loadPlayerTransformAtStart
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

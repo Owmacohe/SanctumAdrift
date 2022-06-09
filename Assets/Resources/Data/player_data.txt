@@ -1,0 +1,9 @@
+[CHARACTER]
+None
+[PLAYER]
+None
+None
+0 0 0
+0 0 0
+0 0 0
+0 0 0

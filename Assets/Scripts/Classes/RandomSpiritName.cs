@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Static class to generate nice-sounding Spirit names
+/// Static class to generate nice-sounding random Spirit names
 /// </summary>
-public abstract class SpiritName
+public abstract class RandomSpiritName
 {
     static readonly char[] vowels = { 'a', 'e', 'i', 'o', 'u' }; // Vowels to be used
     static readonly string[] consonants =
